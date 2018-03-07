@@ -6,7 +6,7 @@ L’objectif de ce projet est la création et la mise en place d’un système 
 ## Configuration requise
 - PHP >= 5.6
 - Mysql
-- Symfony 3.0
+- Symfony 3.3.2
 - Composer => [Installer Composer](http://getcomposer.com/) A confirmer
 - Yarn => [Installer Yarn](https://yarnpkg.com/lang/en/docs/install/#mac-tab)
 
