@@ -29,7 +29,7 @@ Cloner le projet
 
 ## Configuration de la base de donnée
 
-Ouvrez le fichier .env et adaptez la configuration.
+Ouvrez le fichier ./app/config/parameters.yml et adaptez la configuration.
  
 `DATABASE_URL=mysql://db_user:db_password@127.0.0.1:3306/supfile`
 
