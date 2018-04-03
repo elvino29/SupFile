@@ -89,12 +89,12 @@ class LoginController extends Controller
         * permet de recuperer le tmps d'expiration du token.
         */
 
-//       $expiration = $this->container->get('lexik_jwt_authentication.token_ttl');
-//       $now = new \DateTime();
-//       $now->add(new \DateInterval('PT'.$expiration.'S'));
-//       return $now->format('U');
+      $expiration = $this->container->getParameter('lexik_jwt_authentication.token_ttl');
+      $now = new \DateTime();
+      $now->add(new \DateInterval('PT'.$expiration.'S'));
+      return $now->format('U');
 
-       return 0;
+
    }
 
 
