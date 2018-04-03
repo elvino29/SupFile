@@ -86,16 +86,32 @@ class LoginController extends Controller
    public function getTokenExpiration(){
        /**
         * Le service lexik_jwt_authentication.token_ttl
-        * permet de recuperer le tmps d'expiration du token.
+        * permet de recuperer le temps d'expiration du token.
         */
 
-//       $expiration = $this->container->get('lexik_jwt_authentication.token_ttl');
-//       $now = new \DateTime();
-//       $now->add(new \DateInterval('PT'.$expiration.'S'));
-//       return $now->format('U');
+      $expiration = $this->container->getParameter('lexik_jwt_authentication.token_ttl');
+       $now = new \DateTime();
+       $now->add(new \DateInterval('PT'.$expiration.'S'));
+       return $now->format('U');
 
-       return 0;
    }
 
+    /**
+     * @Rest\Post("/logout")
+     *
+     * @param Token $token
+     * @return JsonResponse
+     */
+  // public function logout(Token $token){
+        /**
+         * Le service lexik_jwt_authentication.token_ttl
+         * permet de recuperer le tmps d'expiration du token.
+         */
+    //    return $this->container->get('lexik_jwt_authentication.encoder')
+      //      ->encode([
+        //        'username' => $user->getUsername(),
+          //      'exp' => 0,
+            //]);
 
+    //}
 }

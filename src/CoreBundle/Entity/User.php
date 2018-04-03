@@ -34,6 +34,9 @@ class User extends BaseUser{
     public function __construct()
     {
         parent::__construct();
+
+        $this->spaceAvailable = 30;
+        $this->roles = array('ROLE_USER');
     }
 
 
