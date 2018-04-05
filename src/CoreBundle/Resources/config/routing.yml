@@ -7,6 +7,10 @@ login_user:
     resource: "@CoreBundle/Controller/LoginController.php"
     type:     annotation
 
+directory_user:
+    resource: "@CoreBundle/Controller/DirectoryController.php"
+    type:     annotation
+
 core_user:
     resource: "@CoreBundle/Controller/UserController.php"
     type:     annotation

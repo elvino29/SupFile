@@ -37,6 +37,7 @@ class User extends BaseUser{
 
         $this->spaceAvailable = 30;
         $this->roles = array('ROLE_USER');
+
     }
 
 

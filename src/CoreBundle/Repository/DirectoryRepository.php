@@ -1,6 +1,7 @@
 <?php
 
 namespace CoreBundle\Repository;
+use CoreBundle\Entity\Directory;
 
 /**
  * DirectoryRepository
@@ -10,4 +11,23 @@ namespace CoreBundle\Repository;
  */
 class DirectoryRepository extends \Doctrine\ORM\EntityRepository
 {
+
+    public function getUserFolder($user) {
+
+        $em = $this->getEntityManager()
+            ->createQuery(/** @Lang text */
+                "SELECT d FROM CoreBundle\Entity\Directory d 
+                     JOIN CoreBundle\Entity\User u 
+                     WHERE d.user = u.id
+                     AND d.user = :user
+                     ORDER BY d.id")
+            ->setParameter('user',$user)
+            //->getSQL();
+           ->getResult();
+
+        return $em;
+
+
+    }
+
 }
