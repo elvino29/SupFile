@@ -1,6 +1,7 @@
 <?php
 
 namespace CoreBundle\Repository;
+use CoreBundle\Entity\User;
 
 /**
  * UserRepository
@@ -10,4 +11,17 @@ namespace CoreBundle\Repository;
  */
 class UserRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findByUsernameOrEmail(String $username):User
+    {
+        $em = $this->getEntityManager()
+            ->createQuery( /** @lang text */
+                "SELECT u FROM CoreBundle\Entity\User u
+                     WHERE  u.username = :username OR u.email = :email
+                    ")
+            ->setParameter('username',$username)
+            ->setParameter('email', $username)
+            ->getSingleResult();
+
+        return $em;
+    }
 }

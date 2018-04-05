@@ -36,7 +36,7 @@ class LoginController extends Controller
            ->getManager();
        // recuperer l'utilisateur par son username
        $user = $em  ->getRepository('CoreBundle:User')
-                    ->findOneBy(['username'=> $username]);
+                    ->findByUsernameOrEmail($username);
 
        if(!$user){
            // si aucun utilisateur return user not found
