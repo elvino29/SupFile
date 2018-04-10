@@ -2,6 +2,7 @@
 
 namespace CoreBundle\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -27,6 +28,13 @@ class User extends BaseUser{
      * @ORM\Column(name="space_available", type="integer")
      */
     private $spaceAvailable;
+
+    /**
+     * @var Collection
+     *
+     * @ORM\OneToMany(targetEntity="CoreBundle\Entity\Directory",mappedBy="user")
+     */
+    private $directories;
 
     /**
      * User constructor.
@@ -76,5 +84,39 @@ class User extends BaseUser{
     public function getSpaceAvailable()
     {
         return $this->spaceAvailable;
+    }
+
+    /**
+     * Add directory
+     *
+     * @param \CoreBundle\Entity\Directory $directory
+     *
+     * @return User
+     */
+    public function addDirectory(\CoreBundle\Entity\Directory $directory)
+    {
+        $this->directories[] = $directory;
+
+        return $this;
+    }
+
+    /**
+     * Remove directory
+     *
+     * @param \CoreBundle\Entity\Directory $directory
+     */
+    public function removeDirectory(\CoreBundle\Entity\Directory $directory)
+    {
+        $this->directories->removeElement($directory);
+    }
+
+    /**
+     * Get directories
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getDirectories()
+    {
+        return $this->directories;
     }
 }

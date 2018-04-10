@@ -59,7 +59,7 @@ class File
     /**
      * @var Directory
      *
-     * @ORM\ManyToOne(targetEntity="CoreBundle\Entity\Directory")
+     * @ORM\ManyToOne(targetEntity="CoreBundle\Entity\Directory", inversedBy="files")
      * @ORM\JoinColumn(nullable=false)
      */
     private $directory;

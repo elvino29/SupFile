@@ -31,13 +31,31 @@ class DirectoryController extends Controller
         $em = $this->getDoctrine()
             ->getManager();
 
-        $folders = $em->getRepository('CoreBundle:Directory')
+        $folders = $em->getRepository('CoreBundle:User')
                      ->getUserFolder($id);
 
-        //dump($folder);
+       // dump($folders);
+        //exit();
+        return new JsonResponse($folders);
+    }
 
 
-        return new JsonResponse($this->getDirectoryFormat($folders));
+    /**
+     * @Rest\Get("/file/folder/{id}")
+     * requirements={"id" = "\d+"}
+     *
+     * @param $id
+     * @return JsonResponse
+     */
+    public function getUserFilesByFolderAction($id){
+
+        $em = $this->getDoctrine()
+            ->getManager();
+
+        $files = $em->getRepository('CoreBundle:Directory')
+            ->getFolderAndFiles($id);
+
+        return new JsonResponse($files);
     }
 
 }
