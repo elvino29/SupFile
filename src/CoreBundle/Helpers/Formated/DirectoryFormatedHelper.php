@@ -15,9 +15,11 @@ trait DirectoryFormatedHelper {
         $formated = [];
         foreach ($directory as $folder){
             $formated[] = array(
-                'id' => $folder->getId(),
-                'name' => $folder->getName(),
-                'user' => $folder->getUser()->getUsername()
+                'id' => $folder->getDirectories()->getId(),
+                'name' => $folder->getDirectories()->getName(),
+                'path' => $folder->getDirectories()->getPath(),
+                'updateAt' => $folder->getDirectories()->getUpdateAt(),
+                'user' => $folder->getUsername()
             );
         }
 
