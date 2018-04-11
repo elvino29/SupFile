@@ -36,7 +36,7 @@ class LoginController extends Controller
            ->getManager();
        // recuperer l'utilisateur par son username
        $user = $em  ->getRepository('CoreBundle:User')
-                    ->findOneBy(['username'=> $username]);
+                    ->findByUsernameOrEmail($username);
 
        if(!$user){
            // si aucun utilisateur return user not found
@@ -89,12 +89,12 @@ class LoginController extends Controller
         * permet de recuperer le tmps d'expiration du token.
         */
 
-//       $expiration = $this->container->get('lexik_jwt_authentication.token_ttl');
-//       $now = new \DateTime();
-//       $now->add(new \DateInterval('PT'.$expiration.'S'));
-//       return $now->format('U');
+      $expiration = $this->container->getParameter('lexik_jwt_authentication.token_ttl');
+      $now = new \DateTime();
+      $now->add(new \DateInterval('PT'.$expiration.'S'));
+      return $now->format('U');
 
-       return 0;
+
    }
 
 

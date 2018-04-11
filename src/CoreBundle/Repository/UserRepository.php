@@ -1,6 +1,8 @@
 <?php
 
 namespace CoreBundle\Repository;
+use CoreBundle\Entity\User;
+use Doctrine\ORM\AbstractQuery;
 
 /**
  * UserRepository
@@ -10,4 +12,31 @@ namespace CoreBundle\Repository;
  */
 class UserRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findByUsernameOrEmail(String $username):User
+    {
+        $em = $this->getEntityManager()
+            ->createQuery( /** @lang text */
+                "SELECT u FROM CoreBundle\Entity\User u
+                     WHERE  u.username = :username OR u.email = :email
+                    ")
+            ->setParameter('username',$username)
+            ->setParameter('email', $username)
+            ->getSingleResult();
+
+        return $em;
+    }
+
+    public function getUserFolder($user): array {
+
+        $em = $this->createQueryBuilder('u')
+            ->select('u,d')
+            ->join('u.directories','d')
+            ->where('u.id = :user')
+            ->setParameter('user',$user)
+            ->getQuery()
+            ->getResult(AbstractQuery::HYDRATE_ARRAY);
+
+
+        return $em;
+    }
 }
