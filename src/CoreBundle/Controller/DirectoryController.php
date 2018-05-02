@@ -9,33 +9,38 @@
 namespace CoreBundle\Controller;
 
 
+use CoreBundle\Entity\User;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class DirectoryController extends Controller
 {
 
     use \CoreBundle\Helpers\Formated\DirectoryFormatedHelper;
     /**
-     * @Rest\Get("/folder/user/{id}")
-     * requirements={"id" = "\d+"}
+     * @Rest\Get("/folder/user/")
      *
-     * @param $id
      * @return JsonResponse
      */
-    public function getUserFolderAction($id){
+    public function getUserFolderAction(Request $request){
+
+        $user = $this->get("core_bundle.userprovider")
+            ->loadUserByToken($request->headers->get('authorization'));
+        if(!$user instanceof User) {
+            return $user;
+        }
 
         $em = $this->getDoctrine()
             ->getManager();
 
         $folders = $em->getRepository('CoreBundle:User')
-                     ->getUserFolder($id);
+                     ->getUserFolder($user->getId());
 
-       // dump($folders);
-        //exit();
         return new JsonResponse($folders);
     }
 
@@ -47,15 +52,31 @@ class DirectoryController extends Controller
      * @param $id
      * @return JsonResponse
      */
-    public function getUserFilesByFolderAction($id){
+    public function getUserFilesByFolderAction($id, Request $request){
+
+       $user = $this->get("core_bundle.userprovider")
+            ->loadUserByToken($request->headers->get('authorization'));
+        if(!$user instanceof User) {
+            return $user;
+        }
 
         $em = $this->getDoctrine()
             ->getManager();
 
-        $files = $em->getRepository('CoreBundle:Directory')
-            ->getFolderAndFiles($id);
+        $folder = $em->getRepository('CoreBundle:Directory')
+            ->find($id);
 
-        return new JsonResponse($files);
+        if($user->getId() == $folder->getUser()->getId()){
+            $files = $em->getRepository('CoreBundle:Directory')
+                ->getFolderAndFiles($id);
+
+            return new JsonResponse($files);
+        }else {
+            return new JsonResponse(['message'=> 'This files is not yours'], Response::HTTP_NOT_FOUND);
+        }
+
+
+
     }
 
 }
