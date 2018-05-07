@@ -58,6 +58,12 @@ class LoginController extends Controller
        // générer le token
        $token = $this->getToken($user);
 
+       /*$data = $this->get("core_bundle.userprovider")
+       ->loadUserByToken($token);
+       if(!$data instanceof User) {
+           return $data;
+       }*/
+
        return new JsonResponse(['token' => $token]);
 
    }

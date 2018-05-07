@@ -267,4 +267,16 @@ class Directory
     {
         return $this->files;
     }
+  //RECUPERATION DU PATH
+    public  function getCreatDir(){
+        return 'Dossier/'.$this->user->getId();
+    }
+
+    public function getAbsolutePath(){
+        return __DIR__.'/../../../web/'.$this->getCreatDir().'/'.$this->name;
+    }
+
+    public function getRootDir(){
+        return __DIR__.'/../../../web/';
+    }
 }

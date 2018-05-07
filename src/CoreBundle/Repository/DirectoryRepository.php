@@ -1,6 +1,7 @@
 <?php
 
 namespace CoreBundle\Repository;
+use CoreBundle\Entity\Directory;
 use Doctrine\ORM\AbstractQuery;
 
 
