@@ -1,6 +1,7 @@
 <?php
 
 namespace CoreBundle\Repository;
+use Doctrine\ORM\AbstractQuery;
 
 /**
  * FileRepository
@@ -10,4 +11,5 @@ namespace CoreBundle\Repository;
  */
 class FileRepository extends \Doctrine\ORM\EntityRepository
 {
+
 }

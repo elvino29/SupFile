@@ -2,6 +2,7 @@
 
 namespace CoreBundle\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -31,7 +32,7 @@ class Directory
     /**
      * @var string
      *
-     * @ORM\Column(name="path", type="string", length=255, unique=true)
+     * @ORM\Column(name="path", type="string", length=255, unique=false)
      */
     private $path;
 
@@ -59,10 +60,17 @@ class Directory
     /**
      * @var User
      *
-     * @ORM\ManyToOne(targetEntity="CoreBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="CoreBundle\Entity\User", inversedBy="directories")
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
+
+    /**
+     * @var Collection
+     *
+     * @ORM\OneToMany(targetEntity="CoreBundle\Entity\File",mappedBy="directory")
+     */
+    private $files;
 
 
     /**
@@ -217,5 +225,58 @@ class Directory
     public function getUser()
     {
         return $this->user;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->files = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add file
+     *
+     * @param \CoreBundle\Entity\File $file
+     *
+     * @return Directory
+     */
+    public function addFile(\CoreBundle\Entity\File $file)
+    {
+        $this->files[] = $file;
+
+        return $this;
+    }
+
+    /**
+     * Remove file
+     *
+     * @param \CoreBundle\Entity\File $file
+     */
+    public function removeFile(\CoreBundle\Entity\File $file)
+    {
+        $this->files->removeElement($file);
+    }
+
+    /**
+     * Get files
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getFiles()
+    {
+        return $this->files;
+    }
+  //RECUPERATION DU PATH
+    public  function getCreatDir(){
+        return 'Dossier/'.$this->user->getId();
+    }
+
+    public function getAbsolutePath(){
+        return __DIR__.'/../../../web/'.$this->getCreatDir().'/'.$this->name;
+    }
+
+    public function getRootDir(){
+        return __DIR__.'/../../../web/';
     }
 }
