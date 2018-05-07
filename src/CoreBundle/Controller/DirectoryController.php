@@ -10,8 +10,12 @@ namespace CoreBundle\Controller;
 
 
 use CoreBundle\Entity\User;
+use CoreBundle\Entity\Directory;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Filesystem\Exception\IOException;
+use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -74,9 +78,48 @@ class DirectoryController extends Controller
         }else {
             return new JsonResponse(['message'=> 'This files is not yours'], Response::HTTP_NOT_FOUND);
         }
-
-
-
     }
+
+    // creation de dossiers
+      /**
+
+      * @Rest\Post("/folder")
+      */
+    public function postFolderAction(Request $request){
+
+        $user = $this->get("core_bundle.userprovider")
+            ->loadUserByToken($request->headers->get('authorization'));
+        if(!$user instanceof User) {
+            return $user;
+        }
+
+        $folder = new Directory();
+
+        $fileSystem = new Filesystem();  //Appel de manipulation des fichiers system
+        $folder->setName($request->get('name'));
+        $folder->setActive(true);
+        $folder->setUser($user);
+        $folder->setPath($folder->getAbsolutePath());
+        $folder->setCreatedAt(new \DateTime());
+        $folder->setUpdateAt(new \DateTime());
+          
+             //  création du dossier utilisateur en physique
+        try{
+            $fileSystem->mkdir($folder->getAbsolutePath(), 0700);
+        }catch (IOExceptionInterface $exception){
+            return new JsonResponse(['message'=> 'Values Error !'], Response::HTTP_NOT_FOUND);
+        }
+
+        $em = $this->get('doctrine.orm.entity_manager');
+        $em->persist($folder);
+        $em->flush();
+
+        return new JsonResponse([
+            'name' => $folder->getName(),
+            'CreatedAt' => $folder->getCreatedAt()
+        ]);
+    }
+
+
 
 }
