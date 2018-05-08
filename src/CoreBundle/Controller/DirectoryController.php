@@ -82,7 +82,6 @@ class DirectoryController extends Controller
 
     // creation de dossiers
       /**
-
       * @Rest\Post("/folder")
       */
     public function postFolderAction(Request $request){
@@ -105,6 +104,10 @@ class DirectoryController extends Controller
           
              //  création du dossier utilisateur en physique
         try{
+            if($fileSystem->exists($folder->getAbsolutePath()))
+            {
+                return new JsonResponse(['message'=> 'File already exists !'], Response::HTTP_NOT_FOUND);
+            }
             $fileSystem->mkdir($folder->getAbsolutePath(), 0700);
         }catch (IOExceptionInterface $exception){
             return new JsonResponse(['message'=> 'Values Error !'], Response::HTTP_NOT_FOUND);
@@ -119,6 +122,7 @@ class DirectoryController extends Controller
             'CreatedAt' => $folder->getCreatedAt()
         ]);
     }
+
 
 
 
