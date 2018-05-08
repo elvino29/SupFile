@@ -217,4 +217,12 @@ class File
     {
         return $this->directory;
     }
+    //Récupération du path
+    public function getFolderRepo(){
+        return 'Dossier/'.$this->getDirectory()->getUser()->getId().'/'.$this->getDirectory()->getName().'/';
+    }
+    public function getFilePath(File $file){
+        return $file->getFolderRepo().$file->name.'.'.$file->type;
+    }
+
 }
