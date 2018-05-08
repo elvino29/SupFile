@@ -25,14 +25,14 @@ class Directory
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255, unique=true)
+     * @ORM\Column(name="name", type="string", length=255, unique=false)
      */
     private $name;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="path", type="string", length=255, unique=false)
+     * @ORM\Column(name="path", type="string", length=255, unique=true)
      */
     private $path;
 
