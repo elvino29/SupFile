@@ -106,7 +106,7 @@ class DirectoryController extends Controller
         try{
             if($fileSystem->exists($folder->getAbsolutePath()))
             {
-                return new JsonResponse(['message'=> 'File already exists !'], Response::HTTP_NOT_FOUND);
+                return new JsonResponse(['message'=> 'Directory already exists !'], Response::HTTP_NOT_FOUND);
             }
             $fileSystem->mkdir($folder->getAbsolutePath(), 0700);
         }catch (IOExceptionInterface $exception){
