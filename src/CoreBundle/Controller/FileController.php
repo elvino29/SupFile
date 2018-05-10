@@ -13,8 +13,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use CoreBundle\Entity\User;
 use CoreBundle\Entity\File;
 use FOS\RestBundle\Controller\Annotations as Rest;
-use Symfony\Bundle\SwiftmailerBundle\Command\NewEmailCommand;
-use Symfony\Component\Filesystem\Exception\IOException;
 use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -22,19 +20,16 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+
 class FileController extends Controller
 {
-   /* public function indexAction(){
+   // public function indexAction(){
 
-    }
-
-    public function getAllFileAction(){
-
-    }*/
+   // }
 
     // Télécharger des fichiers
-    /**
 
+    /**
      * @Rest\Get("/file/download/")
      * @return JsonResponse
      */
@@ -57,7 +52,7 @@ class FileController extends Controller
         try{
             if($fileSystem->exists($path))
             {
-                return $this->get('nzo_file_downloader')->downloadFile('/Dossier/2/mondossier/bijou.txt', $files->getName().'.'.$files->getType(), false);
+                return $this->get('nzo_file_downloader')->downloadFile($file->getFilePath($files), $files->getName().'.'.$files->getType(), false);
             }
             return new JsonResponse(['message'=> 'File Not exists !'], Response::HTTP_NOT_FOUND);
 
@@ -85,4 +80,31 @@ class FileController extends Controller
     }
 
 
+
+
+
+
+    /**
+     * @Rest\Put("/file/{id}")
+     */
+    public function putFileAction(Request $request){
+
+        $file =  new File();
+        $user = $this->get("core_bundle.userprovider")
+            ->loadUserByToken($request->headers->get('authorization'));
+        if(!$user instanceof User) {
+            return $user;
+        }
+
+
+        //création du path
+        $em = $this->getDoctrine()->getManager();
+        $files = $em->getRepository('CoreBundle:File')->find($request->get('id'));
+        $file =  new File();
+        $path = $file->getFilePath($files);
+
+        $fileSystem = new Filesystem();
+
+
+    }
 }
