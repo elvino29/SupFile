@@ -100,11 +100,12 @@ class FileController extends Controller
 
 
 
-
+     // Rename de file
 
 
     /**
-     * @Rest\Put("/file/{id}")
+     * @Rest\Put("/file/{id}/rename")
+     * requirements={"id" = "\d+"}
      */
     public function putFileAction(Request $request){
 
@@ -121,6 +122,9 @@ class FileController extends Controller
         $files = $em->getRepository('CoreBundle:File')->find($request->get('id'));
         $file =  new File();
         $path = $file->getFilePath($files);
+
+        //dump($path);
+        //exit();
 
         $fileSystem = new Filesystem();
 
