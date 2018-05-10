@@ -245,14 +245,14 @@ class File
             return;
         }
 
-        $this->name = $this->file->getClientOriginalName();
+        $this->name = basename($this->file->getClientOriginalName(), '.'.$this->file->getClientOriginalExtension() );
 
         $this->type = $this->file->getClientOriginalExtension();
         $this->path = $directory->getPath().'/'.$this->file->getClientOriginalName();
 
         $this->setDirectory($directory);
 
-        $this->file->move($directory->getPath() ,$this->name);
+        $this->file->move($directory->getPath() ,$this->file->getClientOriginalName());
         unset($this->file);
     }
     //Récupération du path

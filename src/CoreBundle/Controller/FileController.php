@@ -87,6 +87,7 @@ class FileController extends Controller
         $file->setCreatedAt(new \DateTime());
         $file->setUpdateAt(new \DateTime());
 
+
         $file->setFile($request->files->get('file'));
 
         $file->upload($folder);
