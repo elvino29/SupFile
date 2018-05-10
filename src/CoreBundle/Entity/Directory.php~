@@ -2,15 +2,16 @@
 
 namespace CoreBundle\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * File
+ * Directory
  *
- * @ORM\Table(name="file")
- * @ORM\Entity(repositoryClass="CoreBundle\Repository\FileRepository")
+ * @ORM\Table(name="directory")
+ * @ORM\Entity(repositoryClass="CoreBundle\Repository\DirectoryRepository")
  */
-class File
+class Directory
 {
     /**
      * @var int
@@ -24,7 +25,7 @@ class File
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255)
+     * @ORM\Column(name="name", type="string", length=255, unique=true)
      */
     private $name;
 
@@ -34,13 +35,6 @@ class File
      * @ORM\Column(name="path", type="string", length=255, unique=true)
      */
     private $path;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="type", type="string", length=255)
-     */
-    private $type;
 
     /**
      * @var \DateTime
@@ -57,12 +51,27 @@ class File
     private $updateAt;
 
     /**
-     * @var Directory
+     * @var boolean
      *
-     * @ORM\ManyToOne(targetEntity="CoreBundle\Entity\Directory", inversedBy="files")
+     * @ORM\Column(name="active", type="boolean")
+     */
+    private $active;
+
+    /**
+     * @var User
+     *
+     * @ORM\ManyToOne(targetEntity="CoreBundle\Entity\User", inversedBy="directories")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $directory;
+    private $user;
+
+    /**
+     * @var Collection
+     *
+     * @ORM\OneToMany(targetEntity="CoreBundle\Entity\File",mappedBy="directory")
+     */
+    private $files;
+
 
     /**
      * Get id
@@ -79,7 +88,7 @@ class File
      *
      * @param string $name
      *
-     * @return File
+     * @return Directory
      */
     public function setName($name)
     {
@@ -103,7 +112,7 @@ class File
      *
      * @param string $path
      *
-     * @return File
+     * @return Directory
      */
     public function setPath($path)
     {
@@ -123,35 +132,11 @@ class File
     }
 
     /**
-     * Set type
-     *
-     * @param string $type
-     *
-     * @return File
-     */
-    public function setType($type)
-    {
-        $this->type = $type;
-
-        return $this;
-    }
-
-    /**
-     * Get type
-     *
-     * @return string
-     */
-    public function getType()
-    {
-        return $this->type;
-    }
-
-    /**
      * Set createdAt
      *
      * @param \DateTime $createdAt
      *
-     * @return File
+     * @return Directory
      */
     public function setCreatedAt($createdAt)
     {
@@ -175,7 +160,7 @@ class File
      *
      * @param \DateTime $updateAt
      *
-     * @return File
+     * @return Directory
      */
     public function setUpdateAt($updateAt)
     {
@@ -195,71 +180,91 @@ class File
     }
 
     /**
-     * Set directory
+     * Set active
      *
-     * @param \CoreBundle\Entity\Directory $directory
+     * @param boolean $active
      *
-     * @return File
+     * @return Directory
      */
-    public function setDirectory(Directory $directory)
+    public function setActive($active)
     {
-        $this->directory = $directory;
+        $this->active = $active;
 
         return $this;
     }
 
     /**
-     * Get directory
+     * Get active
      *
-     * @return \CoreBundle\Entity\Directory
+     * @return boolean
      */
-    public function getDirectory()
+    public function getActive()
     {
-        return $this->directory;
+        return $this->active;
     }
 
     /**
-     * @return mixed
+     * Set user
+     *
+     * @param \CoreBundle\Entity\User $user
+     *
+     * @return Directory
      */
-    public function getFile()
+    public function setUser(User $user)
     {
-        return $this->file;
+        $this->user = $user;
+
+        return $this;
     }
 
     /**
-     * @param mixed $file
+     * Get user
+     *
+     * @return \CoreBundle\Entity\User
      */
-    public function setFile(UploadedFile $file)
+    public function getUser()
     {
-        $this->file = $file;
+        return $this->user;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->files = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
+    /**
+     * Add file
+     *
+     * @param \CoreBundle\Entity\File $file
+     *
+     * @return Directory
+     */
+    public function addFile(\CoreBundle\Entity\File $file)
+    {
+        $this->files[] = $file;
 
-   // public function getUploadPath(Directory $directory){
-      //  return $directory->getPath();
-    //}
-
-    public function upload(Directory $directory){
-        if ($this->file === null ){
-            return;
-        }
-
-        $this->name = $this->file->getClientOriginalName();
-
-        $this->type = $this->file->getClientOriginalExtension();
-        $this->path = $directory->getPath().'/'.$this->file->getClientOriginalName();
-
-        $this->setDirectory($directory);
-
-        $this->file->move($directory->getPath() ,$this->name);
-        unset($this->file);
-    }
-    //Récupération du path
-    public function getFolderRepo(){
-        return 'Dossier/'.$this->getDirectory()->getUser()->getId().'/'.$this->getDirectory()->getName().'/';
-    }
-    public function getFilePath(File $file){
-        return $file->getFolderRepo().$file->name.'.'.$file->type;
+        return $this;
     }
 
+    /**
+     * Remove file
+     *
+     * @param \CoreBundle\Entity\File $file
+     */
+    public function removeFile(\CoreBundle\Entity\File $file)
+    {
+        $this->files->removeElement($file);
+    }
+
+    /**
+     * Get files
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getFiles()
+    {
+        return $this->files;
+    }
 }

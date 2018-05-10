@@ -101,12 +101,14 @@ class DirectoryController extends Controller
         $folder->setPath($folder->getAbsolutePath());
         $folder->setCreatedAt(new \DateTime());
         $folder->setUpdateAt(new \DateTime());
+
+        $fileSystem->rename('/tmp/processed_video.ogg', '/path/to/store/video_647.ogg');
           
              //  création du dossier utilisateur en physique
         try{
             if($fileSystem->exists($folder->getAbsolutePath()))
             {
-                return new JsonResponse(['message'=> 'File already exists !'], Response::HTTP_NOT_FOUND);
+                return new JsonResponse(['message'=> 'Directory already exists !'], Response::HTTP_NOT_FOUND);
             }
             $fileSystem->mkdir($folder->getAbsolutePath(), 0700);
         }catch (IOExceptionInterface $exception){

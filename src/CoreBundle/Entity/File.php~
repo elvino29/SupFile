@@ -217,49 +217,4 @@ class File
     {
         return $this->directory;
     }
-
-    /**
-     * @return mixed
-     */
-    public function getFile()
-    {
-        return $this->file;
-    }
-
-    /**
-     * @param mixed $file
-     */
-    public function setFile(UploadedFile $file)
-    {
-        $this->file = $file;
-    }
-
-
-   // public function getUploadPath(Directory $directory){
-      //  return $directory->getPath();
-    //}
-
-    public function upload(Directory $directory){
-        if ($this->file === null ){
-            return;
-        }
-
-        $this->name = $this->file->getClientOriginalName();
-
-        $this->type = $this->file->getClientOriginalExtension();
-        $this->path = $directory->getPath().'/'.$this->file->getClientOriginalName();
-
-        $this->setDirectory($directory);
-
-        $this->file->move($directory->getPath() ,$this->name);
-        unset($this->file);
-    }
-    //Récupération du path
-    public function getFolderRepo(){
-        return 'Dossier/'.$this->getDirectory()->getUser()->getId().'/'.$this->getDirectory()->getName().'/';
-    }
-    public function getFilePath(File $file){
-        return $file->getFolderRepo().$file->name.'.'.$file->type;
-    }
-
 }
