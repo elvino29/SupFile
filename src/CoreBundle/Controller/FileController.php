@@ -9,6 +9,7 @@
 namespace CoreBundle\Controller;
 
 
+
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use CoreBundle\Entity\User;
 use CoreBundle\Entity\File;
@@ -46,8 +47,8 @@ class FileController extends Controller
         $file =  new File();
         $path = $file->getFilePath($files);
 
-        $fileSystem = new Filesystem();
 
+        $fileSystem = new Filesystem();
         //  verifie si le fichier existe et on le télécharge sinon un msg d'erreur
         try{
             if($fileSystem->exists($path))
@@ -55,17 +56,18 @@ class FileController extends Controller
                 return $this->get('nzo_file_downloader')->downloadFile($file->getFilePath($files), $files->getName().'.'.$files->getType(), false);
             }
             return new JsonResponse(['message'=> 'File Not exists !'], Response::HTTP_NOT_FOUND);
-
         }catch (IOExceptionInterface $exception){
             return new JsonResponse(['message'=> $exception->getMessage()], Response::HTTP_NOT_FOUND);
         }
 
     }
 
+
     /**
-     * @Rest\Post("/upload")
+     * @Rest\Post("/upload/{id}")
+     * requirements={"id" = "\d+"}
      */
-    public function uploadFileAction(Request $request){
+    public function uploadFileAction($id, Request $request){
 
         $user = $this->get("core_bundle.userprovider")
             ->loadUserByToken($request->headers->get('authorization'));
@@ -73,10 +75,27 @@ class FileController extends Controller
             return $user;
         }
 
-        dump($request->getContent());
-        dump($request->files->get('file')->getType());
-        //dump($request->request->get('name'));
-        exit();
+        $em = $this->getDoctrine()
+            ->getManager();
+
+        $folder = $em->getRepository('CoreBundle:Directory')
+            ->find($id);
+
+        $file = new File();
+
+      // $file->getUploadPath($folder);
+        $file->setCreatedAt(new \DateTime());
+        $file->setUpdateAt(new \DateTime());
+
+        $file->setFile($request->files->get('file'));
+
+        $file->upload($folder);
+
+        $em = $this->get('doctrine.orm.entity_manager');
+        $em->persist($file);
+        $em->flush();
+
+        return new JsonResponse(['message'=> 'Upload Succeded !'], Response::HTTP_OK);
     }
 
 
