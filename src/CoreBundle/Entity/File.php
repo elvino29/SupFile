@@ -3,6 +3,7 @@
 namespace CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * File
@@ -63,6 +64,9 @@ class File
      * @ORM\JoinColumn(nullable=false)
      */
     private $directory;
+
+
+    private $file;
 
     /**
      * Get id
@@ -216,5 +220,42 @@ class File
     public function getDirectory()
     {
         return $this->directory;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+    /**
+     * @param mixed $file
+     */
+    public function setFile(UploadedFile $file)
+    {
+        $this->file = $file;
+    }
+
+
+   // public function getUploadPath(Directory $directory){
+      //  return $directory->getPath();
+    //}
+
+    public function upload(Directory $directory){
+        if ($this->file === null ){
+            return;
+        }
+
+        $this->name = $this->file->getClientOriginalName();
+
+        $this->type = $this->file->getClientOriginalExtension();
+        $this->path = $directory->getPath().'/'.$this->file->getClientOriginalName();
+
+        $this->setDirectory($directory);
+
+        $this->file->move($directory->getPath() ,$this->name);
+        unset($this->file);
     }
 }

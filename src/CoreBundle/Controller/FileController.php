@@ -9,6 +9,7 @@
 namespace CoreBundle\Controller;
 
 
+use CoreBundle\Entity\File;
 use CoreBundle\Entity\User;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -35,9 +36,10 @@ class FileController extends Controller
 
     }
     /**
-     * @Rest\Post("/upload")
+     * @Rest\Post("/upload/{id}")
+     * requirements={"id" = "\d+"}
      */
-    public function uploadFileAction(Request $request){
+    public function uploadFileAction($id, Request $request){
 
         $user = $this->get("core_bundle.userprovider")
             ->loadUserByToken($request->headers->get('authorization'));
@@ -45,10 +47,27 @@ class FileController extends Controller
             return $user;
         }
 
-        dump($request->getContent());
-        dump($request->files->get('file')->getType());
-        //dump($request->request->get('name'));
-        exit();
+        $em = $this->getDoctrine()
+            ->getManager();
+
+        $folder = $em->getRepository('CoreBundle:Directory')
+            ->find($id);
+
+        $file = new File();
+
+      // $file->getUploadPath($folder);
+        $file->setCreatedAt(new \DateTime());
+        $file->setUpdateAt(new \DateTime());
+
+        $file->setFile($request->files->get('file'));
+
+        $file->upload($folder);
+
+        $em = $this->get('doctrine.orm.entity_manager');
+        $em->persist($file);
+        $em->flush();
+
+        return new JsonResponse(['message'=> 'Upload Succeded !'], Response::HTTP_OK);
     }
 
 }
