@@ -11,6 +11,11 @@ directory_user:
     resource: "@CoreBundle/Controller/DirectoryController.php"
     type:     annotation
 
+file_user:
+    resource: "@CoreBundle/Controller/FileController.php"
+    type:     annotation
+
+
 core_user:
     resource: "@CoreBundle/Controller/UserController.php"
     type:     annotation
