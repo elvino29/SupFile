@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "9ee29bcd8f9d84436834352377925cd8",
+    "content-hash": "c39cf748d1b89252d3e2bd0fe1bf37c5",
     "packages": [
         {
             "name": "composer/ca-bundle",
@@ -1404,6 +1404,60 @@
                 "token"
             ],
             "time": "2016-12-05T07:27:31+00:00"
+        },
+        {
+            "name": "nzo/file-downloader-bundle",
+            "version": "2.2",
+            "target-dir": "Nzo/FileDownloaderBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/NAYZO/NzoFileDownloaderBundle.git",
+                "reference": "9119d910621a142eca0f4d5211593b51c59bf944"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/NAYZO/NzoFileDownloaderBundle/zipball/9119d910621a142eca0f4d5211593b51c59bf944",
+                "reference": "9119d910621a142eca0f4d5211593b51c59bf944",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3",
+                "symfony/framework-bundle": "~2.3|~3.0"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Nzo\\FileDownloaderBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ala Eddine Khefifi",
+                    "email": "alakhefifi@gmail.com"
+                }
+            ],
+            "description": "The NzoFileDownloaderBundle is a Symfony Bundle used to Download all types of files from servers and Web applications safely and with ease. You can also read/show the file content in the Web Browser.",
+            "keywords": [
+                "browser",
+                "bundle",
+                "download",
+                "downloader",
+                "file",
+                "read",
+                "show",
+                "symfony",
+                "upload"
+            ],
+            "time": "2016-11-25T15:45:21+00:00"
         },
         {
             "name": "paragonie/random_compat",

@@ -25,7 +25,7 @@ class Directory
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255, unique=false)
+     * @ORM\Column(name="name", type="string", length=255, unique=true)
      */
     private $name;
 
@@ -266,17 +266,5 @@ class Directory
     public function getFiles()
     {
         return $this->files;
-    }
-  //RECUPERATION DU PATH
-    public  function getCreatDir(){
-        return 'Dossier/'.$this->user->getId();
-    }
-
-    public function getAbsolutePath(){
-        return __DIR__.'/../../../web/'.$this->getCreatDir().'/'.$this->name;
-    }
-
-    public function getRootDir(){
-        return __DIR__.'/../../../web/';
     }
 }
