@@ -101,8 +101,6 @@ class DirectoryController extends Controller
         $folder->setPath($folder->getAbsolutePath());
         $folder->setCreatedAt(new \DateTime());
         $folder->setUpdateAt(new \DateTime());
-
-        $fileSystem->rename('/tmp/processed_video.ogg', '/path/to/store/video_647.ogg');
           
              //  création du dossier utilisateur en physique
         try{
