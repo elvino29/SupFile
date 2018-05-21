@@ -4,6 +4,22 @@ app_home:
         _controller: AppBundle:Default:index
 
 app_index:
-    resource: "@AppBundle/Controller/HomeController.php"
-    type:     annotation
+    path:      /home
+    defaults:
+        _controller: AppBundle:Home:index
+
+app_login:
+    path:      /login
+    defaults:
+        _controller: AppBundle:Home:toLogin
+
+app_index_user:
+    path:      /user/home
+    defaults:
+        _controller: AppBundle:Home:indexUser
+
+app_dropzone:
+    path:      /user/dropzone
+    defaults:
+        _controller: AppBundle:Home:toDropzone
 

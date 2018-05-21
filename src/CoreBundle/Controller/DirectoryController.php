@@ -115,7 +115,6 @@ class DirectoryController extends Controller
         $folder->setToken(uniqid());
         $folder->setShared(false);
 
-          
              //  création du dossier utilisateur en physique
         try{
             if($fileSystem->exists($folder->getAbsolutePath()))
