@@ -14,6 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class HomeController extends Controller
 {
 
+
     public function indexAction(){
       return $this->render('AppBundle:Home:index.html.twig');
     }
@@ -29,5 +30,6 @@ class HomeController extends Controller
     public function toDropzoneAction(){
         return $this->render('AppBundle:Home:dropzone.htlm.twig');
     }
+
 
 }
