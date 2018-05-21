@@ -4,6 +4,7 @@ namespace CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * File
@@ -64,6 +65,20 @@ class File
      * @ORM\JoinColumn(nullable=false)
      */
     private $directory;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="shared", type="boolean")
+     */
+    private $shared;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="token", type="string", length=255, unique=true)
+     */
+    private $token;
 
     /**
      * Get id
@@ -252,7 +267,7 @@ class File
 
         $this->setDirectory($directory);
 
-        $this->file->move($directory->getPath() ,$this->file->getClientOriginalName());
+        $this->file->move($directory->getAbsolutePath() ,$this->file->getClientOriginalName());
         unset($this->file);
     }
     //Récupération du path
@@ -263,4 +278,57 @@ class File
         return $file->getFolderRepo().$file->name.'.'.$file->type;
     }
 
+    public function getRealPath(Request $request) {
+        $baseUrl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath().'/';
+
+        return $baseUrl . $this->getPath();
+    }
+
+    /**
+     * Set shared
+     *
+     * @param boolean $shared
+     *
+     * @return File
+     */
+    public function setShared($shared)
+    {
+        $this->shared = $shared;
+
+        return $this;
+    }
+
+    /**
+     * Get shared
+     *
+     * @return boolean
+     */
+    public function getShared()
+    {
+        return $this->shared;
+    }
+
+    /**
+     * Set token
+     *
+     * @param string $token
+     *
+     * @return File
+     */
+    public function setToken($token)
+    {
+        $this->token = $token;
+
+        return $this;
+    }
+
+    /**
+     * Get token
+     *
+     * @return string
+     */
+    public function getToken()
+    {
+        return $this->token;
+    }
 }
