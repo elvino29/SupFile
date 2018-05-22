@@ -85,23 +85,36 @@ class DirectoryController extends Controller
       * @Rest\Post("/folder")
       */
     public function postFolderAction(Request $request){
-
         $user = $this->get("core_bundle.userprovider")
             ->loadUserByToken($request->headers->get('authorization'));
         if(!$user instanceof User) {
             return $user;
         }
 
+        $em = $this->get('doctrine.orm.entity_manager');
+
+
+
         $folder = new Directory();
+
+        if(!empty($request->get('parentId'))) {
+            $parent = $em->getRepository('CoreBundle:Directory')->find($request->get('parentId'));
+
+            if($parent) {
+                $folder->setParent($parent);
+            }
+        }
 
         $fileSystem = new Filesystem();  //Appel de manipulation des fichiers system
         $folder->setName($request->get('name'));
         $folder->setActive(true);
         $folder->setUser($user);
-        $folder->setPath($folder->getAbsolutePath());
+        $folder->setPath($folder->getCreateFolderDir());
         $folder->setCreatedAt(new \DateTime());
         $folder->setUpdateAt(new \DateTime());
-          
+        $folder->setToken(uniqid());
+        $folder->setShared(false);
+
              //  création du dossier utilisateur en physique
         try{
             if($fileSystem->exists($folder->getAbsolutePath()))
@@ -113,7 +126,7 @@ class DirectoryController extends Controller
             return new JsonResponse(['message'=> 'Values Error !'], Response::HTTP_NOT_FOUND);
         }
 
-        $em = $this->get('doctrine.orm.entity_manager');
+
         $em->persist($folder);
         $em->flush();
 
@@ -124,6 +137,64 @@ class DirectoryController extends Controller
     }
 
 
+    /**
+     * @Rest\post("/folder/share")
+     */
+    public function shareAction(Request $request){
+
+        $user = $this->get("core_bundle.userprovider")
+            ->loadUserByToken($request->headers->get('authorization'));
+        if(!$user instanceof User) {
+            return $user;
+        }
+
+        $em = $this->getDoctrine()
+            ->getManager();
+
+        $folder = $em->getRepository('CoreBundle:Directory')
+            ->find($request->get('folder_id'));
+
+        $folder->setShared(true);
+
+        $em->merge($folder);
+        $em->flush();
+
+        return new JsonResponse([
+            'token' => $folder->getToken(),
+        ]);
+
+    }
+
+    /**
+     * @Rest\get("/folder/share/{id}")
+     *
+     * requirements = {"id" = "\d+"}
+     */
+    public function getShareFolder(Request $request){
+
+        $user = $this->get("core_bundle.userprovider")
+            ->loadUserByToken($request->headers->get('authorization'));
+        if(!$user instanceof User) {
+            return $user;
+        }
+
+        $em = $this->getDoctrine()
+            ->getManager();
+
+        $folder = $em->getRepository('CoreBundle:Directory')->findOneBy(['token' => $request->get('id')]);
+
+        if($folder->getShared()) {
+            $result = $em->getRepository('CoreBundle:Directory')->getFolderAndFiles($folder->getId());
+        } else {
+            return new JsonResponse([
+                'error' => 'this folder is not shared',
+            ]);
+        }
+
+
+
+        return new JsonResponse($result);
+    }
 
 
 }

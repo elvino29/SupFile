@@ -24,6 +24,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class FileController extends Controller
 {
+    use \CoreBundle\Helpers\Formated\FileFormatedHelper;
    // public function indexAction(){
 
    // }
@@ -69,6 +70,8 @@ class FileController extends Controller
      */
     public function uploadFileAction($id, Request $request){
 
+
+
         $user = $this->get("core_bundle.userprovider")
             ->loadUserByToken($request->headers->get('authorization'));
         if(!$user instanceof User) {
@@ -86,7 +89,8 @@ class FileController extends Controller
       // $file->getUploadPath($folder);
         $file->setCreatedAt(new \DateTime());
         $file->setUpdateAt(new \DateTime());
-
+        $file->setToken(uniqid());
+        $file->setShared(false);
 
         $file->setFile($request->files->get('file'));
 
@@ -105,7 +109,7 @@ class FileController extends Controller
 
 
     /**
-     * @Rest\Put("/file/{id}")
+     * @Rest\Post("/file/{id}/rename")
      */
     public function putFileAction(Request $request){
 
@@ -120,11 +124,71 @@ class FileController extends Controller
         //création du path
         $em = $this->getDoctrine()->getManager();
         $files = $em->getRepository('CoreBundle:File')->find($request->get('id'));
+
+        dump($files->getRealPath($request));
+        exit();
         $file =  new File();
         $path = $file->getFilePath($files);
 
         $fileSystem = new Filesystem();
 
 
+    }
+
+    /**
+     * @Rest\post("/file/share")
+     */
+    public function shareAction(Request $request){
+
+        $user = $this->get("core_bundle.userprovider")
+            ->loadUserByToken($request->headers->get('authorization'));
+        if(!$user instanceof User) {
+            return $user;
+        }
+
+        $em = $this->getDoctrine()
+            ->getManager();
+
+        $file = $em->getRepository('CoreBundle:File')
+            ->find($request->get('file_id'));
+
+        $file->setShared(true);
+
+        $em->merge($file);
+        $em->flush();
+
+        return new JsonResponse([
+            'token' => $file->getToken(),
+        ]);
+    }
+
+    /**
+     * @Rest\get("/file/share/{id}")
+     *
+     * requirements = {"id" = "\d+"}
+     */
+    public function getShareFolder(Request $request){
+
+        $user = $this->get("core_bundle.userprovider")
+            ->loadUserByToken($request->headers->get('authorization'));
+        if(!$user instanceof User) {
+            return $user;
+        }
+
+        $em = $this->getDoctrine()
+            ->getManager();
+
+        $file = $em->getRepository('CoreBundle:File')->findOneBy(['token' => $request->get('id')]);
+
+        if(!$file->getShared()) {
+
+            return new JsonResponse([
+                'error' => 'this file is not shared',
+            ]);
+        }
+
+
+
+        return new JsonResponse($this->getFileFormat($file));
     }
 }
