@@ -255,12 +255,18 @@ class File
         $this->file->move($directory->getPath() ,$this->file->getClientOriginalName());
         unset($this->file);
     }
+
     //Récupération du path
     public function getFolderRepo(){
         return 'Dossier/'.$this->getDirectory()->getUser()->getId().'/'.$this->getDirectory()->getName().'/';
     }
+
     public function getFilePath(File $file){
         return $file->getFolderRepo().$file->name.'.'.$file->type;
+    }
+
+    public function getNewFilePath(File $file){
+        return  __DIR__.'/../../../web/'.$file->getFolderRepo();
     }
 
 }

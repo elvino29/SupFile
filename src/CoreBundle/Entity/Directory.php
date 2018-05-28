@@ -226,6 +226,21 @@ class Directory
     {
         return $this->user;
     }
+
+
+    /**
+     * Get directory
+     *
+     * @return \CoreBundle\Entity\Directory
+     */
+    public function getDirectory()
+    {
+        return $this->directory;
+    }
+
+
+
+
     /**
      * Constructor
      */
@@ -278,5 +293,13 @@ class Directory
 
     public function getRootDir(){
         return __DIR__.'/../../../web/';
+    }
+
+    public function getFolderRepo(){
+        return 'Dossier/'.$this->user->getId();
+    }
+
+    public function getNewFilePath(Directory $folder){
+        return  __DIR__.'/../../../web/'.$folder->getFolderRepo();
     }
 }
