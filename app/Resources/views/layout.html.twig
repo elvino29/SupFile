@@ -21,12 +21,13 @@
 
     <body>
     <!--  HEADER -->
+    {% block header %}
     <header>
         <div class="top">
             <div class="row">
                 <div class="small-12 large-3 medium-3 columns">
                     <div class="logo">
-                        <a href="#" title=""><img src="{{ asset('bundles/img/front/logo.png') }}/logo.png" alt="" title=""/></a>
+                        <a href="{{ path('app_index') }}" title=""><img src="{{ asset('bundles/img/front/logo.png') }}" alt="" title=""/></a>
                     </div>
                 </div>
 
@@ -35,9 +36,9 @@
                     <!--  NAVIGATION MENU AREA -->
                     <nav class="desktop-menu">
                         <ul class="sf-menu" id="navigation">
-                            <li class="current-menu-item"><a href="#">INSCRIPTION</a>
-                            <li><a href="{{ path('app_login') }}">SE CONNECTER</a></li>
-                            <li><a href="#">QUI SOMME NOUS?</a></li>
+                            <li><a href="{{ path('fos_user_registration_register') }}">INSCRIPTION</a>
+                            <li><a href="{{ path('fos_user_security_login') }}">SE CONNECTER</a></li>
+                            <li><a href="{{ path('app_login') }}">QUI SOMME NOUS?</a></li>
                         </ul>
                     </nav>
                     <!--  END OF NAVIGATION MENU AREA -->
@@ -56,13 +57,14 @@
                         <span class="message-line"></span>
                     </div>
                     <h1><span id="js-rotating">HIGH PERFORMANCE VIRTUAL MACHINES, CLOUD FOR ALL FILES, INSTANT ACCOUNT ACTIVATION, THE REAL PUBLIC CLOUD EXPERIENCE</span></h1>
-                    <a href="index.htm#pricingboxes" class="small radius button">VIEW PLANS</a>
+                    <a href="#pricingboxes" class="small radius button">VIEW PLANS</a>
                 </div>
             </div>
         </div>
         <!--  END OF MESSAGES ABOVE HEADER IMAGE -->
 
     </header>
+    {% endblock %}
     <!--  END OF HEADER -->
 
     {% block body %}
