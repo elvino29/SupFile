@@ -15,6 +15,7 @@ class DefaultController extends Controller
 {
     public function indexAction()
     {
+        dump('test');exit();
         return $this->render('CoreBundle:Default:index.html.twig');
     }
 

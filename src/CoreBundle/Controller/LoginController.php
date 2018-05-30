@@ -51,6 +51,7 @@ class LoginController extends Controller
         $isvalid = $this->get('security.password_encoder')
             ->ispasswordValid($user,$pwd);
 
+
        if(!$isvalid){
            // si aucun utilisateur return probleme de mot de passe
            return new JsonResponse(['message'=> 'Values Error !'], Response::HTTP_NOT_FOUND);

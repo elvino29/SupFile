@@ -20,6 +20,7 @@ class AppKernel extends Kernel
             new FOS\RestBundle\FOSRestBundle(),
             new Lexik\Bundle\JWTAuthenticationBundle\LexikJWTAuthenticationBundle(),
             new Nzo\FileDownloaderBundle\NzoFileDownloaderBundle(),
+            new Lsw\ApiCallerBundle\LswApiCallerBundle(),
             new AppBundle\AppBundle(),
         ];
 
