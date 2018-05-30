@@ -24,7 +24,7 @@ class User extends BaseUser{
 
     /**
      * @var integer
-     *integer
+     *
      * @ORM\Column(name="space_available", type="integer")
      */
     private $spaceAvailable;

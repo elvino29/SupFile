@@ -4,6 +4,7 @@ namespace CoreBundle\Entity;
 
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Directory
@@ -57,6 +58,7 @@ class Directory
      */
     private $active;
 
+
     /**
      * @var User
      *
@@ -71,6 +73,31 @@ class Directory
      * @ORM\OneToMany(targetEntity="CoreBundle\Entity\File",mappedBy="directory")
      */
     private $files;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Directory", mappedBy="parent")
+     */
+    private $children;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Directory", inversedBy="children")
+     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
+     */
+    private $parent;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="shared", type="boolean")
+     */
+    private $shared;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="token", type="string", length=255, unique=true)
+     */
+    private $token;
 
 
     /**
@@ -226,27 +253,13 @@ class Directory
     {
         return $this->user;
     }
-
-
-    /**
-     * Get directory
-     *
-     * @return \CoreBundle\Entity\Directory
-     */
-    public function getDirectory()
-    {
-        return $this->directory;
-    }
-
-
-
-
     /**
      * Constructor
      */
     public function __construct()
     {
         $this->files = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->children = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -282,24 +295,148 @@ class Directory
     {
         return $this->files;
     }
+
   //RECUPERATION DU PATH
     public  function getCreatDir(){
         return 'Dossier/'.$this->user->getId();
     }
 
+    public  function getCreateFolderDir(){
+        $path = $this->getCreatDir();
+        if(!empty($this->getParent())) {
+            $path = $this->getParent()->getCreateFolderDir();
+        }
+        return $path .'/'.$this->name;
+    }
+
     public function getAbsolutePath(){
-        return __DIR__.'/../../../web/'.$this->getCreatDir().'/'.$this->name;
+        $path = __DIR__.'/../../../web/'.$this->getCreatDir();
+        if(!empty($this->getParent())) {
+            $path = $this->getParent()->getAbsolutePath();
+        }
+        return $path .'/'.$this->name;
+    }
+
+    public function getRealPath(Request $request) {
+        $baseUrl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath().'/' . $this->getCreatDir();
+
+        if(!empty($this->getParent())) {
+            $baseUrl = $this->getParent()->getRealPath($request);
+        }
+
+
+        return $baseUrl . '/'.$this->name;
     }
 
     public function getRootDir(){
         return __DIR__.'/../../../web/';
     }
 
-    public function getFolderRepo(){
-        return 'Dossier/'.$this->user->getId();
+    /**
+     * Add child
+     *
+     * @param \CoreBundle\Entity\Directory $child
+     *
+     * @return Directory
+     */
+    public function addChild(\CoreBundle\Entity\Directory $child)
+    {
+        $this->children[] = $child;
+
+        return $this;
     }
 
-    public function getNewFilePath(Directory $folder){
-        return  __DIR__.'/../../../web/'.$folder->getFolderRepo();
+    /**
+     * Remove child
+     *
+     * @param \CoreBundle\Entity\Directory $child
+     */
+    public function removeChild(\CoreBundle\Entity\Directory $child)
+    {
+        $this->children->removeElement($child);
     }
+
+    /**
+     * Get children
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getChildren()
+    {
+        return $this->children;
+    }
+
+    /**
+     * Set parent
+     *
+     * @param \CoreBundle\Entity\Directory $parent
+     *
+     * @return Directory
+     */
+    public function setParent(\CoreBundle\Entity\Directory $parent = null)
+    {
+        $this->parent = $parent;
+
+        return $this;
+    }
+
+    /**
+     * Get parent
+     *
+     * @return \CoreBundle\Entity\Directory
+     */
+    public function getParent()
+    {
+        return $this->parent;
+    }
+
+    /**
+     * Set shared
+     *
+     * @param boolean $shared
+     *
+     * @return Directory
+     */
+    public function setShared($shared)
+    {
+        $this->shared = $shared;
+
+        return $this;
+    }
+
+    /**
+     * Get shared
+     *
+     * @return boolean
+     */
+    public function getShared()
+    {
+        return $this->shared;
+    }
+
+    /**
+     * Set token
+     *
+     * @param string $token
+     *
+     * @return Directory
+     */
+    public function setToken($token)
+    {
+        $this->token = $token;
+
+        return $this;
+    }
+
+    /**
+     * Get token
+     *
+     * @return string
+     */
+    public function getToken()
+    {
+        return $this->token;
+    }
+
+
 }
