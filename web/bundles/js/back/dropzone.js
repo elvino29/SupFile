@@ -329,7 +329,7 @@ var Dropzone = function (_Emitter) {
          * or an array of those. In that case, all of those elements will trigger an
          * upload when clicked.
          */
-        clickable: true,
+        clickable: false,
 
         /**
          * Whether hidden files in directories should be ignored.
