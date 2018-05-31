@@ -83,11 +83,6 @@ header .message .button:hover {background:#65464c; border-color:#65464c; text-de
 header h2 {padding:45px 0 25px; font-size:42px; color:#fff; text-align: center; font-weight: 100;}
 #js-rotating {display: none;}
 
-header.alt-1 {background:url(../../../../../../../../../../Applications/MAMP/htdocs/cloudmeSuplife/images/header_alt-1_bg.jpg) bottom center no-repeat; min-height:490px; position: relative;}
-header.alt-2 {background:url(../../../../../../../../../../Applications/MAMP/htdocs/cloudmeSuplife/images/header_alt-2_bg.jpg) bottom center no-repeat; min-height:490px; position: relative;}
-header.alt-3 {background:url(../../../../../../../../../../Applications/MAMP/htdocs/cloudmeSuplife/images/header_alt-3_bg.jpg) bottom center no-repeat; min-height:490px; position: relative;}
-header.alt-4 {background:url(../../../../../../../../../../Applications/MAMP/htdocs/cloudmeSuplife/images/header_alt-4_bg.jpg) bottom center no-repeat; min-height:580px; position: relative;}
-header.alt-5 {background:url(../../../../../../../../../../Applications/MAMP/htdocs/cloudmeSuplife/images/header_alt-5_bg.jpg) bottom center no-repeat; min-height:490px; position: relative;}
 header.login {background:transparent; min-height:1px;}
 
 header.alt-1 .message h1, header.alt-2 .message h1, header.alt-4 .message h1 {color: #D7D7D7;}

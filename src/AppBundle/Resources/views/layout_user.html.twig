@@ -16,7 +16,9 @@
             <link rel="stylesheet" href="{{ asset('bundles/css/back/font-awesome.css')}}" />
             <link rel="stylesheet" href="{{ asset('bundles/css/back/morris.css')}}" />
             <link rel="stylesheet" href="{{ asset('bundles/css/back/monthly.css')}}" />
-            <link rel="stylesheet" href="{{ asset('bundles/css/back/file-manager.css')}}" />
+            <link rel="stylesheet" href="{{ asset('bundles/css/back/nifty.min.css')}}" />
+            <link rel="stylesheet" href="{{ asset('bundles/css/back/nifty-demo.min.css')}}" />
+            <link rel="stylesheet" href="{{ asset('bundles/css/back/nifty-demo-icons.min.css')}}" />
             <script src="{{ asset('bundles/js/back/jquery2.0.3.min.js') }}"></script>
             <script src="{{ asset('bundles/js/back/raphael-min.js') }}"></script>
             <script src="{{ asset('bundles/js/back/morris.js') }}"></script>
@@ -130,7 +132,8 @@
 
     <!--  FOOTER  -->
     <footer>
-
+        {% block footer %}
+        {% endblock %}
     </footer>
     <!--  END OF FOOTER  -->
 
@@ -142,7 +145,7 @@
         <script src="{{ asset('bundles/js/back/jquery.scrollTo.js') }}"></script>
         <script src="{{ asset('bundles/js/back/scripts.js') }}"></script>
         <script src="{{ asset('bundles/js/back/dropzone.js') }}"></script>
-        <script src="{{ asset('bundles/js/back/file-manager.js') }}"></script>
+        <script src="{{ asset('bundles/js/back/nifty.min.js') }}"></script>
 
     {% endblock %}
 
