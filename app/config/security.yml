@@ -18,7 +18,8 @@ security:
                 csrf_token_generator: security.csrf.token_manager
                 success_handler: authentication.handler.login_success_handler
 
-            logout:       true
+            logout:
+                success_handler: app.logoutlistener
             anonymous:    true
 
     access_control:

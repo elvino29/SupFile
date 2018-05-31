@@ -27,3 +27,8 @@ services:
     authentication.handler.login_success_handler:
         class:  AppBundle\Security\LoginSuccessHandler
         arguments:  ['@router', '@security.authorization_checker', '@api_caller']
+
+    app.logoutlistener:
+        class:  AppBundle\EventListener\LogoutListener
+        arguments:
+            - "@router"

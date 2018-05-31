@@ -28,20 +28,18 @@ class FormSuccessListener implements EventSubscriberInterface
     {
         return array(
             FOSUserEvents::REGISTRATION_COMPLETED => array('onRegistrationCompleted',-10),
-            FOSUserEvents::SECURITY_IMPLICIT_LOGIN => array('onLogin',-10),
+            //FOSUserEvents::SECURITY_IMPLICIT_LOGIN => array('onLogin',-10),
         );
     }
 
     public function onRegistrationCompleted(FilterUserResponseEvent $event)
     {
-        $user = $event->getUser();
 
-        //Créer le dossier pour l'utilisateur
-        dump('test');exit();
-    }
-
-    public function onLogin(FilterUserResponseEvent $event)
-    {
         dump($event);exit();
     }
+
+    /*public function onLogin(FilterUserResponseEvent $event)
+    {
+        dump($event);exit();
+    }*/
 }
