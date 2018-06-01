@@ -125,19 +125,19 @@ class FileController extends Controller
         $em = $this->getDoctrine()->getManager();
         $files = $em->getRepository('CoreBundle:File')->find($request->get('id'));
 
-        dump($files->getRealPath($request));
-        exit();
-        $file =  new File();
-        $path = $file->getFilePath($files);
+        $path = $files->getPath();
 
         $fileSystem = new Filesystem();
 
+        $newPath = $files->getDirectory()->getCreateFolderDir();
+
         try {
             if ($fileSystem->exists($path)) {
+
                 $newname = $request->get('newname');
-                $fileSystem->rename($path, $file->getNewFilePath($files).$newname.'.'.$files->getType());
+                $fileSystem->rename($path, $newPath.'/'.$newname.'.'.$files->getType());
                 $files->setName($request->get('newname'));
-                $files->setPath($file->getNewFilePath($files).$request->get('newname').'.'.$files->getType());
+                $files->setPath($newPath.'/'.$newname.'.'.$files->getType());
                 $em->merge($files);
                 $em->flush();
                 return new JsonResponse(['message' => 'Rename Succeded !'], Response::HTTP_OK);

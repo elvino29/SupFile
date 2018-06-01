@@ -137,7 +137,7 @@ class DirectoryController extends Controller
         ]);
     }
 
-
+      //partage du fichier
     /**
      * @Rest\post("/folder/share")
      */
@@ -196,12 +196,11 @@ class DirectoryController extends Controller
 
         return new JsonResponse($result);
     }
+
+
     // Rename de folder
-
-
     /**
      * @Rest\Post("/folder/{id}/rename")
-     * requirements={"id" = "\d+"}
      */
     public function postDirectoryAction(Request $request)
     {
@@ -216,18 +215,22 @@ class DirectoryController extends Controller
 
         //création du path
         $em = $this->getDoctrine()->getManager();
-        $folders = $em->getRepository('CoreBundle:Directory')->find($request->get('id'));
-        $folder = new Directory();
-        $path = $folders->getPath();
+        $folder = $em->getRepository('CoreBundle:Directory')->find($request->get('id'));
+
+        $path = $folder->getCreateFolderDir();
+
         $fileSystem = new Filesystem();
+        dump($path);
+        dump($folder->getRenameFolderDir());exit();
 
         try {
             if ($fileSystem->exists($path)) {
-                $newname = $request->get('newname');
-                $fileSystem->rename($path, $folder->getNewFilePath($folders).$newname.'.'.$folders);
-                $folders->setName($request->get('newname'));
-                $folders->setPath($folder->getNewFilePath($folders).$request->get('newname').'.'.$folders);
-                $em->merge($folders);
+
+                $newname = $folder->getRenameFolderDir().$request->get('newname');
+                $fileSystem->rename($path, $newname);
+                $folder->setName($request->get('newname'));
+                $folder->setPath($newname);
+                $em->merge($folder);
                 $em->flush();
                 return new JsonResponse(['message' => 'Rename Succeded !'], Response::HTTP_OK);
             }
@@ -235,8 +238,8 @@ class DirectoryController extends Controller
             return new JsonResponse(['message' => 'New name Error !'], Response::HTTP_NOT_FOUND);
         }
 
-        return new JsonResponse(['message' => 'Operation finish Succeded !'], Response::HTTP_OK);
     }
+
 
 
 

@@ -309,6 +309,14 @@ class Directory
         return $path .'/'.$this->name;
     }
 
+    public  function getRenameFolderDir(){
+        $path = $this->getCreatDir();
+        if(!empty($this->getParent())) {
+            $path = $this->getParent()->getPath();
+        }
+        return $path .'/';
+    }
+
     public function getAbsolutePath(){
         $path = __DIR__.'/../../../web/'.$this->getCreatDir();
         if(!empty($this->getParent())) {
