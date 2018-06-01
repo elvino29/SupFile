@@ -82,7 +82,6 @@ class DirectoryController extends Controller
 
     // creation de dossiers
       /**
-
       * @Rest\Post("/folder")
       */
     public function postFolderAction(Request $request){
@@ -93,24 +92,42 @@ class DirectoryController extends Controller
             return $user;
         }
 
+        $em = $this->get('doctrine.orm.entity_manager');
+
+
+
         $folder = new Directory();
+
+        if(!empty($request->get('parentId'))) {
+            $parent = $em->getRepository('CoreBundle:Directory')->find($request->get('parentId'));
+
+            if($parent) {
+                $folder->setParent($parent);
+            }
+        }
 
         $fileSystem = new Filesystem();  //Appel de manipulation des fichiers system
         $folder->setName($request->get('name'));
         $folder->setActive(true);
         $folder->setUser($user);
-        $folder->setPath($folder->getAbsolutePath());
+        $folder->setPath($folder->getCreateFolderDir());
         $folder->setCreatedAt(new \DateTime());
         $folder->setUpdateAt(new \DateTime());
-          
+        $folder->setToken(uniqid());
+        $folder->setShared(false);
+
              //  création du dossier utilisateur en physique
         try{
+            if($fileSystem->exists($folder->getAbsolutePath()))
+            {
+                return new JsonResponse(['message'=> 'Directory already exists !'], Response::HTTP_NOT_FOUND);
+            }
             $fileSystem->mkdir($folder->getAbsolutePath(), 0700);
         }catch (IOExceptionInterface $exception){
             return new JsonResponse(['message'=> 'Values Error !'], Response::HTTP_NOT_FOUND);
         }
 
-        $em = $this->get('doctrine.orm.entity_manager');
+
         $em->persist($folder);
         $em->flush();
 
@@ -119,6 +136,110 @@ class DirectoryController extends Controller
             'CreatedAt' => $folder->getCreatedAt()
         ]);
     }
+
+      //partage du fichier
+    /**
+     * @Rest\post("/folder/share")
+     */
+    public function shareAction(Request $request){
+
+        $user = $this->get("core_bundle.userprovider")
+            ->loadUserByToken($request->headers->get('authorization'));
+        if(!$user instanceof User) {
+            return $user;
+        }
+
+        $em = $this->getDoctrine()
+            ->getManager();
+
+        $folder = $em->getRepository('CoreBundle:Directory')
+            ->find($request->get('folder_id'));
+
+        $folder->setShared(true);
+
+        $em->merge($folder);
+        $em->flush();
+
+        return new JsonResponse([
+            'token' => $folder->getToken(),
+        ]);
+
+    }
+
+    /**
+     * @Rest\get("/folder/share/{id}")
+     *
+     * requirements = {"id" = "\d+"}
+     */
+    public function getShareFolder(Request $request){
+
+        $user = $this->get("core_bundle.userprovider")
+            ->loadUserByToken($request->headers->get('authorization'));
+        if(!$user instanceof User) {
+            return $user;
+        }
+
+        $em = $this->getDoctrine()
+            ->getManager();
+
+        $folder = $em->getRepository('CoreBundle:Directory')->findOneBy(['token' => $request->get('id')]);
+
+        if($folder->getShared()) {
+            $result = $em->getRepository('CoreBundle:Directory')->getFolderAndFiles($folder->getId());
+        } else {
+            return new JsonResponse([
+                'error' => 'this folder is not shared',
+            ]);
+        }
+
+
+
+        return new JsonResponse($result);
+    }
+
+
+    // Rename de folder
+    /**
+     * @Rest\Post("/folder/{id}/rename")
+     */
+    public function postDirectoryAction(Request $request)
+    {
+
+        $folder = new Directory();
+        $user = $this->get("core_bundle.userprovider")
+            ->loadUserByToken($request->headers->get('authorization'));
+        if (!$user instanceof User) {
+            return $user;
+        }
+
+
+        //création du path
+        $em = $this->getDoctrine()->getManager();
+        $folder = $em->getRepository('CoreBundle:Directory')->find($request->get('id'));
+
+        $path = $folder->getCreateFolderDir();
+
+        $fileSystem = new Filesystem();
+        dump($path);
+        dump($folder->getRenameFolderDir());exit();
+
+        try {
+            if ($fileSystem->exists($path)) {
+
+                $newname = $folder->getRenameFolderDir().$request->get('newname');
+                $fileSystem->rename($path, $newname);
+                $folder->setName($request->get('newname'));
+                $folder->setPath($newname);
+                $em->merge($folder);
+                $em->flush();
+                return new JsonResponse(['message' => 'Rename Succeded !'], Response::HTTP_OK);
+            }
+        } catch (IOExceptionInterface $exception) {
+            return new JsonResponse(['message' => 'New name Error !'], Response::HTTP_NOT_FOUND);
+        }
+
+    }
+
 
 
 

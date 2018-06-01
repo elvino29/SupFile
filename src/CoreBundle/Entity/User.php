@@ -118,5 +118,11 @@ class User extends BaseUser{
     public function getDirectories()
     {
         return $this->directories;
+
     }
+
+    //recuperation du path
+
+
+
 }

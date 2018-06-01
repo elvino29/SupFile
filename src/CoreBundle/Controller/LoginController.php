@@ -17,6 +17,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Kernel;
 
 
 class LoginController extends Controller
@@ -49,6 +50,7 @@ class LoginController extends Controller
         */
         $isvalid = $this->get('security.password_encoder')
             ->ispasswordValid($user,$pwd);
+
 
        if(!$isvalid){
            // si aucun utilisateur return probleme de mot de passe

@@ -1,0 +1,101 @@
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <title>{% block title %}-{% endblock %}</title>
+
+        {% block stylesheets %}
+            <link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet" type="text/css">
+            <link rel="stylesheet" href="{{ asset('bundles/css/front/other/foundation.css')}}" />
+            <link rel="stylesheet" href="{{ asset('bundles/css/front/other/font-awesome.min.css')}}" />
+            <link rel="stylesheet" href="{{ asset('bundles/css/front/other/animate.min.css')}}" />
+            <link rel="stylesheet" href="{{ asset('bundles/css/front/other/morphext.css')}}" />
+            <link rel="stylesheet" href="{{ asset('bundles/css/front/other/owl.carousel.css')}}" />
+            <link rel="stylesheet" href="{{ asset('bundles/css/front/other/owl.theme.css')}}" />
+            <link rel="stylesheet" href="{{ asset('bundles/css/front/other/owl.transitions.css')}}" />
+            <link rel="stylesheet"href="{{ asset('bundles/css/front/other/slicknav.css')}}" />
+            <link rel="stylesheet" href="{{ asset('bundles/css/front/other/style.css')}}" />
+        {% endblock %}
+    </head>
+
+    <body>
+    <!--  HEADER -->
+    {% block header %}
+    <header>
+        <div class="top">
+            <div class="row">
+                <div class="small-12 large-3 medium-3 columns">
+                    <div class="logo">
+                        <a href="{{ path('app_index') }}" title=""><img src="{{ asset('bundles/img/front/logo.png') }}" alt="" title=""/></a>
+                    </div>
+                </div>
+
+                <div class="small-12 large-9 medium-9 columns">
+
+                    <!--  NAVIGATION MENU AREA -->
+                    <nav class="desktop-menu">
+                        <ul class="sf-menu" id="navigation">
+                            <li><a href="{{ path('fos_user_registration_register') }}">INSCRIPTION</a>
+                            <li><a href="{{ path('fos_user_security_login') }}">SE CONNECTER</a></li>
+                            <li><a href="{{ path('app_login') }}">QUI SOMME NOUS?</a></li>
+                        </ul>
+                    </nav>
+                    <!--  END OF NAVIGATION MENU AREA -->
+
+                </div>
+            </div>
+        </div>
+
+        <!--  MESSAGES ABOVE HEADER IMAGE -->
+        <div class="message">
+            <div class="row">
+                <div class="small-12 columns">
+                    <div class="message-intro">
+                        <span class="message-line"></span>
+                        <p>Flexible Cloud Hosting</p>
+                        <span class="message-line"></span>
+                    </div>
+                    <h1><span id="js-rotating">HIGH PERFORMANCE VIRTUAL MACHINES, CLOUD FOR ALL FILES, INSTANT ACCOUNT ACTIVATION, THE REAL PUBLIC CLOUD EXPERIENCE</span></h1>
+                    <a href="#pricingboxes" class="small radius button">VIEW PLANS</a>
+                </div>
+            </div>
+        </div>
+        <!--  END OF MESSAGES ABOVE HEADER IMAGE -->
+
+    </header>
+    {% endblock %}
+    <!--  END OF HEADER -->
+
+    {% block body %}
+    {% endblock %}
+
+    <!--  FOOTER  -->
+    <footer>
+        <p class="copyright">© Copyright SUPLIFE </p>
+    </footer>
+    <!--  END OF FOOTER  -->
+
+    {% block javascript %}
+        <script src="{{ asset('bundles/js/front/other/jquery.js') }}"></script>
+        <script src="{{ asset('bundles/js/front/other/what-input.min.js') }}"></script>
+        <script src="{{ asset('bundles/js/front/foundation.min.js') }}"></script>
+        <script src="{{ asset('bundles/js/front/other/hoverIntent.js') }}"></script>
+        <script src="{{ asset('bundles/js/front/other/superfish.min.js') }}"></script>
+        <script src="{{ asset('bundles/js/front/other/morphext.min.js') }}"></script>
+        <script src="{{ asset('bundles/js/front/other/wow.min.js') }}"></script>
+        <script src="{{ asset('bundles/js/front/other/jquery.slicknav.min.js') }}"></script>
+        <script src="{{ asset('bundles/js/front/other/waypoints.min.js') }}"></script>
+        <script src="{{ asset('bundles/js/front/other/jquery.animateNumber.min.js') }}"></script>
+        <script src="{{ asset('bundles/js/front/other/owl.carousel.min.js') }}"></script>
+        <script src="{{ asset('bundles/js/front/other/retina.min.js') }}"></script>
+        <script src="{{ asset('bundles/js/front/custom.js') }}"></script>
+
+    {% endblock %}
+
+
+
+
+    </body>
+
+</html>
