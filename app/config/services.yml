@@ -18,10 +18,16 @@ services:
         class: AppBundle\Form\RegistrationType
         tags:
             - { name: form.type, alias: app_user_registration }
+
+    app.homedireservice:
+        class:  AppBundle\Services\UserHomeDirService
+
+
     app.formsuccess_listener:
         class: AppBundle\EventListener\FormSuccessListener
         arguments:
             - '@router'
+            - '@app.homedireservice'
         tags:
             - { name: kernel.event_subscriber }
     authentication.handler.login_success_handler:
@@ -32,3 +38,6 @@ services:
         class:  AppBundle\EventListener\LogoutListener
         arguments:
             - "@router"
+
+
+
