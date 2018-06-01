@@ -295,7 +295,7 @@ class Directory
     {
         return $this->files;
     }
-    
+
   //RECUPERATION DU PATH
     public  function getCreatDir(){
         return 'Dossier/'.$this->user->getId();
@@ -307,6 +307,14 @@ class Directory
             $path = $this->getParent()->getCreateFolderDir();
         }
         return $path .'/'.$this->name;
+    }
+
+    public  function getRenameFolderDir(){
+        $path = $this->getCreatDir();
+        if(!empty($this->getParent())) {
+            $path = $this->getParent()->getPath();
+        }
+        return $path .'/';
     }
 
     public function getAbsolutePath(){
