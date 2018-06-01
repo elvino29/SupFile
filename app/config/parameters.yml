@@ -10,3 +10,4 @@ parameters:
     mailer_user: kevindoh26@gmail.com
     mailer_password: null
     secret: ThisTokenIsNotSoSecretChangeIt
+    jwt_key_pass_phrase: masseni

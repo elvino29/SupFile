@@ -1,6 +1,9 @@
 <?php
 
 namespace CoreBundle\Repository;
+use CoreBundle\Entity\Directory;
+use Doctrine\ORM\AbstractQuery;
+
 
 /**
  * DirectoryRepository
@@ -10,4 +13,47 @@ namespace CoreBundle\Repository;
  */
 class DirectoryRepository extends \Doctrine\ORM\EntityRepository
 {
+
+//   public function getUserFolder($user) {
+//
+//        $em = $this->getEntityManager()
+//            ->createQuery(/** @Lang text */
+//                "SELECT d FROM CoreBundle\Entity\Directory d
+//                     JOIN CoreBundle\Entity\User u
+//                     WHERE d.user = u.id
+//                     AND d.user = :user
+//                     ORDER BY d.id")
+//            ->setParameter('user',$user)
+//            //->getSQL();
+//           ->getResult();
+//
+//        $em = $this->createQueryBuilder('d')
+//            ->select('d,u')
+//            ->join('d.user','d')
+//            ->where('u.id = :user')
+//            ->setParameter('user',$user)
+//            ->getQuery()
+//            ->getResult(AbstractQuery::HYDRATE_ARRAY);
+//
+//
+//        return $em;
+//
+//
+//    }
+
+   public function getFolderAndFiles($folder):array {
+
+       $em = $this->createQueryBuilder('d')
+           ->select('d,f')
+           ->join('d.files','f')
+           ->where('d.id = :folder')
+           ->setParameter('folder',$folder)
+           ->getQuery()
+           ->getResult(AbstractQuery::HYDRATE_ARRAY);
+
+
+       return $em;
+   }
+
+
 }
