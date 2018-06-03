@@ -9,6 +9,8 @@
 namespace CoreBundle\Helpers\Formated;
 
 
+use CoreBundle\Entity\File;
+
 trait FileFormatedHelper {
 
     public function getFileFormat($file){
@@ -23,6 +25,42 @@ trait FileFormatedHelper {
                 'token' => $file->getToken()
             );
 
+
+        return $formated;
+    }
+
+    public function getHomeFileFormat(array $file){
+
+        $formated = [];
+        foreach ($file as $data){
+
+            $formated[] = array(
+                'id' => $data->getId(),
+                'name' => $data->getName(),
+                'path' => $data->getPath(),
+                'updateAt' => $data->getUpdateAt(),
+                'type' => $data->getType(),
+            );
+        }
+
+        return $formated;
+    }
+
+    public function getHomeFileFrontFormat(array $file){
+
+        $formated = [];
+        foreach ($file as $data){
+
+            $formated[] = array(
+                'id' => $data->getId(),
+                'name' => $data->getName(),
+                'path' => $data->getPath(),
+                'updateAt' => $data->getUpdateAt(),
+                'type' => $data->getType(),
+                'size' => $data->getSize(),
+                'mimeType' => $data->getMineType(),
+            );
+        }
 
         return $formated;
     }
