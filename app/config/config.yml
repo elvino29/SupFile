@@ -79,13 +79,16 @@ fos_user:
     db_driver: orm # other valid values are 'mongodb' and 'couchdb'
     firewall_name: main
     user_class: CoreBundle\Entity\User
+    registration:
+            form:
+                type: AppBundle\Form\RegistrationType
     from_email:
         address: "%mailer_user%"
         sender_name: "%mailer_user%"
 
 #Login configuration
 lexik_jwt_authentication:
-    private_key_path: %kernel.root_dir%/../app/jwt/private.pem
-    public_key_path:  %kernel.root_dir%/../app/jwt/public.pem
-    pass_phrase:      %jwt_key_pass_phrase%
+    private_key_path: '%kernel.root_dir%/../app/jwt/private.pem'
+    public_key_path:  '%kernel.root_dir%/../app/jwt/public.pem'
+    pass_phrase:      '%jwt_key_pass_phrase%'
     token_ttl:        3600

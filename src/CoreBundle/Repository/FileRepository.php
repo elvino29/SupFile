@@ -11,5 +11,17 @@ use Doctrine\ORM\AbstractQuery;
  */
 class FileRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getUserHomeFiles($folder) {
+
+        $em = $this->createQueryBuilder('f')
+            ->select('f')
+            ->where('f.directory = :folder')
+            ->setParameter('folder',$folder)
+            ->getQuery()
+            ->getResult();
+
+
+        return $em;
+    }
 
 }

@@ -45,6 +45,20 @@ class File
     private $type;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="size", type="integer", length=11)
+     */
+    private $size;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="minetype", type="string", length=255)
+     */
+    private $minetype;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="createdAt", type="datetime")
@@ -264,19 +278,15 @@ class File
 
         $this->type = $this->file->getClientOriginalExtension();
         $this->path = $directory->getPath().'/'.$this->file->getClientOriginalName();
+        $this->size = $this->file->getSize();
+        $this->minetype = $this->file->getMimeType();
 
         $this->setDirectory($directory);
 
         $this->file->move($directory->getAbsolutePath() ,$this->file->getClientOriginalName());
         unset($this->file);
     }
-    //Récupération du path
-    public function getFolderRepo(){
-        return 'Dossier/'.$this->getDirectory()->getUser()->getId().'/'.$this->getDirectory()->getName().'/';
-    }
-    public function getFilePath(File $file){
-        return $file->getFolderRepo().$file->name.'.'.$file->type;
-    }
+
 
     public function getRealPath(Request $request) {
         $baseUrl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath().'/';
@@ -330,5 +340,53 @@ class File
     public function getToken()
     {
         return $this->token;
+    }
+
+    /**
+     * Set size
+     *
+     * @param integer $size
+     *
+     * @return File
+     */
+    public function setSize($size)
+    {
+        $this->size = $size;
+
+        return $this;
+    }
+
+    /**
+     * Get size
+     *
+     * @return integer
+     */
+    public function getSize()
+    {
+        return $this->size;
+    }
+
+    /**
+     * Set minetype
+     *
+     * @param string $minetype
+     *
+     * @return File
+     */
+    public function setMinetype($minetype)
+    {
+        $this->minetype = $minetype;
+
+        return $this;
+    }
+
+    /**
+     * Get minetype
+     *
+     * @return string
+     */
+    public function getMinetype()
+    {
+        return $this->minetype;
     }
 }

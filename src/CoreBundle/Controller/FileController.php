@@ -44,17 +44,17 @@ class FileController extends Controller
         }
    //création du path
         $em = $this->getDoctrine()->getManager();
-        $files = $em->getRepository('CoreBundle:File')->find($request->get('id'));
-        $file =  new File();
-        $path = $file->getFilePath($files);
+        $file = $em->getRepository('CoreBundle:File')->find($request->get('id'));
 
+        $path = $file->getPath();
 
         $fileSystem = new Filesystem();
         //  verifie si le fichier existe et on le télécharge sinon un msg d'erreur
         try{
             if($fileSystem->exists($path))
             {
-                return $this->get('nzo_file_downloader')->downloadFile($file->getFilePath($files), $files->getName().'.'.$files->getType(), false);
+
+                return $this->get('nzo_file_downloader')->downloadFile($path, $file->getName().'.'.$file->getType(), false);
             }
             return new JsonResponse(['message'=> 'File Not exists !'], Response::HTTP_NOT_FOUND);
         }catch (IOExceptionInterface $exception){
@@ -125,13 +125,26 @@ class FileController extends Controller
         $em = $this->getDoctrine()->getManager();
         $files = $em->getRepository('CoreBundle:File')->find($request->get('id'));
 
-        dump($files->getRealPath($request));
-        exit();
-        $file =  new File();
-        $path = $file->getFilePath($files);
+        $path = $files->getPath();
 
         $fileSystem = new Filesystem();
 
+        $newPath = $files->getDirectory()->getCreateFolderDir();
+
+        try {
+            if ($fileSystem->exists($path)) {
+
+                $newname = $request->get('newname');
+                $fileSystem->rename($path, $newPath.'/'.$newname.'.'.$files->getType());
+                $files->setName($request->get('newname'));
+                $files->setPath($newPath.'/'.$newname.'.'.$files->getType());
+                $em->merge($files);
+                $em->flush();
+                return new JsonResponse(['message' => 'Rename Succeded !'], Response::HTTP_OK);
+            }
+        } catch (IOExceptionInterface $exception) {
+            return new JsonResponse(['message' => 'New name Error !'], Response::HTTP_NOT_FOUND);
+        }
 
     }
 
