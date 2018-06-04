@@ -1,0 +1,16 @@
+######## URL rewriting #########
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^(.*)$ web/$1 [QSA,L]
+</IfModule>
+
+
+########## Securité #######
+
+# Protection des fichier .htaccess
+<files .htaccess>
+order allow,deny
+deny from all
+</files>

@@ -74,7 +74,7 @@ class DirectoryController extends Controller
             ->getUserHomeFiles($root->getId());
 
 
-        return new JsonResponse([$this->getDirectoryFormat($children),$this->getHomeFileFormat($files)]);
+        return new JsonResponse(['directories'=>$this->getDirectoryFormat($children),'files'=>$this->getHomeFileFormat($files)]);
     }
 
 

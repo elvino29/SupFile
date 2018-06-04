@@ -51,7 +51,7 @@
                     <ul class="dropdown-menu extended logout">
                         <li><a href="#"><i class=" fa fa-suitcase"></i>Profile</a></li>
                         <li><a href="#"><i class="fa fa-cog"></i> Settings</a></li>
-                        <li><a href=""><i class="fa fa-key"></i> Log Out</a></li>
+                        <li><a href="{{ path('fos_user_security_logout') }}"><i class="fa fa-key"></i> Log Out</a></li>
                     </ul>
                 </li>
                 <!-- user login dropdown end -->
@@ -69,40 +69,22 @@
             <div class="leftside-navigation">
                 <ul class="sidebar-menu" id="nav-accordion">
                     <li>
-                        <a class="active" href="../index.html">
+                        <a class="active" href="{{ path('app_index_user') }}">
                             <i class="fa fa-folder-open-o"></i>
                             <span>File Manager</span>
                         </a>
                     </li>
 
                     <li class="sub-menu">
-                        <a href="dropzone.html">
+                        <a href="{{ path('app_dropzone') }}">
                             <i class="fa fa-folder-open-o"></i>
-                            <span>Archives</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="dropzone.html">
-                            <i class="fa fa-folder-open-o"></i>
-                            <span>Audio </span>
+                            <span>Upload</span>
                         </a>
                     </li>
                     <li class="sub-menu">
                         <a href="dropzone.html">
                             <i class="fa fa-folder-open-o"></i>
                             <span>Documents</span>
-                        </a>
-                    </li>
-                    <li class="sub-menu">
-                        <a href="dropzone.html">
-                            <i class="fa fa-folder-open-o"></i>
-                            <span>Photos</span>
-                        </a>
-                    </li>
-                    <li class="sub-menu">
-                        <a href="dropzone.html">
-                            <i class="fa fa-folder-open-o"></i>
-                            <span>Videos </span>
                         </a>
                     </li>
                     <li class="sub-menu">

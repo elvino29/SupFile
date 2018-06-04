@@ -14,12 +14,12 @@ app_login:
         _controller: AppBundle:Home:toLogin
 
 app_index_user:
-    path:      /user/home
+    path:      /myaccount
     defaults:
         _controller: AppBundle:Home:indexUser
 
 app_dropzone:
-    path:      /user/dropzone
+    path:      /upload
     defaults:
         _controller: AppBundle:Home:toDropzone
 

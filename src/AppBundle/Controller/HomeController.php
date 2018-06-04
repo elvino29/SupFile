@@ -14,8 +14,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class HomeController extends Controller
 {
 
+    use \CoreBundle\Helpers\Formated\DirectoryFormatedHelper;
+    use \CoreBundle\Helpers\Formated\FileFormatedHelper;
 
     public function indexAction(){
+
       return $this->render('AppBundle:Home:index.html.twig');
     }
 
@@ -24,7 +27,23 @@ class HomeController extends Controller
     }
 
     public function indexUserAction(){
-        return $this->render('AppBundle:Home:index_user.html.twig');
+       // get user folder and files
+        $user = $this->getUser();
+        $em = $this->getDoctrine()
+            ->getManager();
+
+        $root = $em->getRepository('CoreBundle:Directory')->getUserRootDir($user->getId());
+
+        $children = $em->getRepository('CoreBundle:Directory')->findByParent($root->getId());
+
+        $files = $em->getRepository('CoreBundle:File')
+            ->getUserHomeFiles($root->getId());
+
+
+        return $this->render('AppBundle:Home:index_user.html.twig', array(
+                'directories'=>$this->getDirectoryFormat($children),
+                'files'=>$this->getHomeFileFormat($files))
+        );
     }
 
     public function toDropzoneAction(){
