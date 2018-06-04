@@ -1,71 +1,108 @@
 {% extends "AppBundle::layout_user.html.twig" %}
-
 {% block title %}
-    {{ parent() }} - Accueil_User
+    {{ parent() }}
+    - Accueil_User
 {% endblock %}
 
 {% block body %}
     <!--main content start-->
     <section id="main-content">
-        <section class="wrapper">
-            <!-- //market-->
-            <div class="market-updates">
-                <div class="col-md-3 market-update-gd">
-                    <div class="market-update-block clr-block-2">
-                        <div class="col-md-4 market-update-right">
-                            <i class="fa fa-folder-open-o"> </i>
-                        </div>
-                        <div class="col-md-8 market-update-left">
+    <section class="wrapper">
+        <div class="row">
+            <div class="panel-body">
+                <div class="col-md-12 w3ls-graph">
 
-                        </div>
-                        <div class="clearfix"> </div>
-                    </div>
-                </div>
-                <div class="col-md-3 market-update-gd">
-                    <div class="market-update-block clr-block-1">
-                        <div class="col-md-4 market-update-right">
-                            <i class="fa fa-archive" ></i>
-                        </div>
-                        <div class="col-md-8 market-update-left">
+                    <!--Page content-->
+                    <!--===================================================-->
+                    <div id="page-content">
 
-                        </div>
-                        <div class="clearfix"> </div>
-                    </div>
-                </div>
-                <div class="col-md-3 market-update-gd">
-                    <div class="market-update-block clr-block-3">
-                        <div class="col-md-4 market-update-right">
-                            <i class="fa fa-cloud-upload"></i>
-                        </div>
-                        <div class="col-md-8 market-update-left">
+                        <div class="panel">
+                            <div class="pad-all file-manager">
+                                <div class="fixed-fluid">
 
-                        </div>
-                        <div class="clearfix"> </div>
-                    </div>
-                </div>
-                <div class="col-md-3 market-update-gd">
-                    <div class="market-update-block clr-block-4">
-                        <div class="col-md-4 market-update-right">
-                            <i class="fa fa-cloud-download"></i>
-                        </div>
-                        <div class="col-md-8 market-update-left">
+                                    <div class="fluid file-panel">
+                                        <div class="fixed-sm-200 pull-sm-left file-sidebar pull-right">
+                                            <div class="pad-btm">
+                                                <a href="#" class="btn btn-block btn-lg btn-info v-middle"><i class="demo-pli-upload-to-cloud"></i>Upload Files</a>
+                                            </div>
+                                        </div>
+                                        <div class=" pad-ver">
+                                            <ol class="breadcrumb">
+                                                <li><a href="#">Home</a></li>
+                                                <li><a href="#">App Views</a></li>
+                                                <li class="active">File Manager</li>
+                                            </ol>
+                                        </div>
+                                        <div class="file-toolbar">
+                                            <div class="btn-file-toolbar">
+                                                <a class="btn btn-icon add-tooltip" href="#" data-original-title="Home" data-toggle="tooltip"><i class="icon-2x demo-pli-home"></i></a>
+                                                <a class="btn btn-icon add-tooltip" href="#" data-original-title="Refresh" data-toggle="tooltip"><i class="icon-2x demo-pli-reload-3"></i></a>
+                                            </div>
+                                            <div class="btn-file-toolbar">
+                                                <a class="btn btn-icon add-tooltip" href="#" data-original-title="New Folder" data-toggle="tooltip"><i class="icon-2x demo-pli-folder"></i></a>
+                                                <a class="btn btn-icon add-tooltip" href="#" data-original-title="New File" data-toggle="tooltip"><i class="icon-2x demo-pli-file-add"></i></a>
+                                                <a class="btn btn-icon add-tooltip" href="#" data-original-title="Edit File" data-toggle="tooltip"><i class="icon-2x demo-pli-file-edit"></i></a>
+                                            </div>
+                                            <div class="btn-file-toolbar pull-right">
+                                                <a class="btn btn-icon add-tooltip" href="#" data-original-title="Delete" data-toggle="tooltip"><i class="icon-2x demo-pli-recycling"></i></a>
+                                                <a class="btn btn-icon add-tooltip" href="#" data-original-title="Download" data-toggle="tooltip"><i class="icon-2x demo-pli-download-from-cloud"></i></a>
+                                            </div>
+                                        </div>
 
+                                        <ul id="demo-mail-list" class="file-list">
+                                            {% for valeur in directories %}
+                                                <!--File list item-->
+                                                <li>
+                                                    <div class="file-control">
+                                                        <input id="{{ valeur.id }}" class="magic-checkbox" type="checkbox">
+                                                        <label for="{{ valeur.id }}"></label>
+                                                    </div>
+                                                    <div class="file-settings"><a href="#"><i class="pci-ver-dots"></i></a></div>
+                                                    <div class="file-attach-icon"></div>
+                                                    <a href="#" class="file-details">
+                                                        <div class="media-block">
+                                                            <div class="media-left"><i class="demo-psi-folder"></i></div>
+                                                            <div class="media-body">
+                                                                <p class="file-name">{{ valeur.name }}</p>
+                                                                <small>Created Yesterday | 22 MB</small>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                            {% endfor %}
+
+                                            {% for valeur in files %}
+                                                <!--File list item-->
+                                                <li>
+                                                    <div class="file-control">
+                                                        <input id="{{ valeur.id }}" class="magic-checkbox" type="checkbox">
+                                                        <label for="{{ valeur.id }}"></label>
+                                                    </div>
+                                                    <div class="file-settings"><a href="#"><i class="pci-ver-dots"></i></a></div>
+                                                    <div class="file-attach-icon"></div>
+                                                    <a href="#" class="file-details" data-id="{{ valeur.id }}">
+                                                        <div class="media-block">
+                                                            <div class="media-left"><i class="demo-pli-file-{% if  valeur.type|lower in ['png','jpg','gif','bmp','jpeg'] %}jpg{% elseif valeur.type|lower in ['pdf','doc','docx','odt'] %}word{% else %}{{ valeur.type|lower }}{% endif %}"></i></div>
+                                                            <div class="media-body">
+                                                                <p class="file-name">{{ valeur.name }}.{{ valeur.type|lower }}</p>
+                                                                <small>Created 3 weeks ago | 265 KB</small>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="clearfix"> </div>
+
                     </div>
+                    <!--===================================================-->
+                    <!--End page content-->
                 </div>
-                <div class="clearfix"> </div>
             </div>
-            <!-- //market-->
-
-            <div class="row">
-                <div class="panel-body">
-                    <div class="col-md-12 w3ls-graph">
-
-
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!--main content end-->
+        </div>
+    </section>
+    <!--main content end-->
 {% endblock %}

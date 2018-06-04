@@ -446,7 +446,7 @@ ul.top-menu>li>a:hover,ul.top-menu>li>a:focus {
     font-size: 1.7em;
     padding-left: 10px;
 }
-.top-nav .icon-user .username {
+.top-nav .icon-user {
     color: #555555;
     font-size: 13px;
     position: relative;
@@ -496,7 +496,7 @@ ul.top-menu>li>a:hover,ul.top-menu>li>a:focus {
 .dropdown-menu.extended.logout>li>a>i {
     padding-right:10px;
 }
-.top-nav .username {
+.top-nav  {
     font-size:13px;
     color:#fff;
 }

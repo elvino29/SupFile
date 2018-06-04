@@ -9,17 +9,16 @@
             <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
             <link href='//fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
             <link rel="stylesheet" href="{{ asset('bundles/css/back/bootstrap.min.css')}}" />
-            <link rel="stylesheet" href="{{ asset('bundles/css/back/style.css')}}" />
             <link rel="stylesheet" href="{{ asset('bundles/css/back/dropzone.css')}}" />
             <link rel="stylesheet" href="{{ asset('bundles/css/back/style-responsive.css')}}" />
             <link rel="stylesheet" href="{{ asset('bundles/css/back/font.css')}}" />
             <link rel="stylesheet" href="{{ asset('bundles/css/back/font-awesome.css')}}" />
             <link rel="stylesheet" href="{{ asset('bundles/css/back/morris.css')}}" />
             <link rel="stylesheet" href="{{ asset('bundles/css/back/monthly.css')}}" />
-            <link rel="stylesheet" href="{{ asset('bundles/css/back/file-manager.css')}}" />
-            <script src="{{ asset('bundles/js/back/jquery2.0.3.min.js') }}"></script>
-            <script src="{{ asset('bundles/js/back/raphael-min.js') }}"></script>
-            <script src="{{ asset('bundles/js/back/morris.js') }}"></script>
+            <link rel="stylesheet" href="{{ asset('bundles/css/back/nifty.min.css')}}" />
+            <link rel="stylesheet" href="{{ asset('bundles/css/back/nifty-demo.min.css')}}" />
+            <link rel="stylesheet" href="{{ asset('bundles/css/back/nifty-demo-icons.min.css')}}" />
+            <link rel="stylesheet" href="{{ asset('bundles/css/back/style.css')}}" />
         {% endblock %}
     </head>
 
@@ -39,20 +38,18 @@
         <div class="top-nav clearfix">
             <!--search & user info start-->
             <ul class="nav pull-right top-menu">
-                <li>
-                    <input type="text" class="form-control search" placeholder=" Search">
-                </li>
                 <!-- user login dropdown start-->
                 <li class="dropdown">
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                         <img alt="" src="{{ asset('bundles/img/back/3.png')}}">
-                        <span class="username">Utilisateur</span>
+                        <span class="username">{{ app.user.username }}</span>
+
                         <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu extended logout">
                         <li><a href="#"><i class=" fa fa-suitcase"></i>Profile</a></li>
                         <li><a href="#"><i class="fa fa-cog"></i> Settings</a></li>
-                        <li><a href=""><i class="fa fa-key"></i> Log Out</a></li>
+                        <li><a href="{{ path('fos_user_security_logout') }}"><i class="fa fa-key"></i> Log Out</a></li>
                     </ul>
                 </li>
                 <!-- user login dropdown end -->
@@ -70,40 +67,22 @@
             <div class="leftside-navigation">
                 <ul class="sidebar-menu" id="nav-accordion">
                     <li>
-                        <a class="active" href="../index.html">
+                        <a class="active" href="{{ path('app_index_user') }}">
                             <i class="fa fa-folder-open-o"></i>
                             <span>File Manager</span>
                         </a>
                     </li>
 
                     <li class="sub-menu">
-                        <a href="dropzone.html">
+                        <a href="{{ path('app_dropzone') }}">
                             <i class="fa fa-folder-open-o"></i>
-                            <span>Archives</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="dropzone.html">
-                            <i class="fa fa-folder-open-o"></i>
-                            <span>Audio </span>
+                            <span>Upload</span>
                         </a>
                     </li>
                     <li class="sub-menu">
                         <a href="dropzone.html">
                             <i class="fa fa-folder-open-o"></i>
                             <span>Documents</span>
-                        </a>
-                    </li>
-                    <li class="sub-menu">
-                        <a href="dropzone.html">
-                            <i class="fa fa-folder-open-o"></i>
-                            <span>Photos</span>
-                        </a>
-                    </li>
-                    <li class="sub-menu">
-                        <a href="dropzone.html">
-                            <i class="fa fa-folder-open-o"></i>
-                            <span>Videos </span>
                         </a>
                     </li>
                     <li class="sub-menu">
@@ -130,20 +109,22 @@
 
     <!--  FOOTER  -->
     <footer>
-
+        {% block footer %}
+        {% endblock %}
     </footer>
     <!--  END OF FOOTER  -->
 
     {% block javascript %}
+        <script src="{{ asset('bundles/js/back/jquery2.0.3.min.js') }}"></script>
         <script src="{{ asset('bundles/js/back/bootstrap.js') }}"></script>
         <script src="{{ asset('bundles/js/back/jquery.dcjqaccordion.2.7.js') }}"></script>
-        <script src="{{ asset('bundles/js/back/jquery.min.js') }}"></script>
         <script src="{{ asset('bundles/js/back/jquery.nicescroll.js') }}"></script>
         <script src="{{ asset('bundles/js/back/jquery.scrollTo.js') }}"></script>
         <script src="{{ asset('bundles/js/back/scripts.js') }}"></script>
         <script src="{{ asset('bundles/js/back/dropzone.js') }}"></script>
-        <script src="{{ asset('bundles/js/back/file-manager.js') }}"></script>
-
+        <script src="{{ asset('bundles/js/back/nifty.min.js') }}"></script>
+        <script src="{{ asset('bundles/js/back/raphael-min.js') }}"></script>
+        <script src="{{ asset('bundles/js/back/morris.js') }}"></script>
     {% endblock %}
 
     </body>
