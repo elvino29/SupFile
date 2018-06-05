@@ -6,12 +6,16 @@
 
     {% block body %}
         <section id="main-content">
-            <section class="wrapper">
+            <section class="wrapper" >
                 <div class="row">
-                    <div class="col-sm-12">
-                        <form action="/" method="post" class="dropzone" id="my-awesome-dropzone"></form>
+                    <div class="col-sm-12 dropzone" id="mydropzone" style="height:800px;border:solid 1px #ccc;">
+
                     </div>
                 </div>
             </section>
         </section>
 {% endblock %}
+
+    {% block javascript %}
+    <script src="{{ asset('bundles/js/back/upload.js') }}"></script>
+    {% endblock %}

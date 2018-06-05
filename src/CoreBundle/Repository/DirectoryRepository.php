@@ -41,5 +41,15 @@ class DirectoryRepository extends \Doctrine\ORM\EntityRepository
            ->getSingleResult();
    }
 
+    public function getFolderRootDir($parentId)
+    {
+        return $this->createQueryBuilder('d')
+            ->select('d')
+            ->where('d.parent = :parent')
+            ->setParameter('parent', $parentId)
+            ->getQuery()
+            ->getResult();
+    }
+
 
 }
