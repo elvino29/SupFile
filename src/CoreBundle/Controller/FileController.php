@@ -70,8 +70,6 @@ class FileController extends Controller
      */
     public function uploadFileAction($id, Request $request){
 
-
-
         $user = $this->get("core_bundle.userprovider")
             ->loadUserByToken($request->headers->get('authorization'));
         if(!$user instanceof User) {

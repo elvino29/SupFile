@@ -2,7 +2,10 @@
 
 namespace AppBundle\Security;
 
+use AppBundle\Services\UserHomeDirService;
+use FOS\UserBundle\Event\FilterUserResponseEvent;
 use Lsw\ApiCallerBundle\Caller\ApiCallerInterface;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Security\Http\Authentication\AuthenticationSuccessHandlerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
@@ -16,22 +19,22 @@ class LoginSuccessHandler implements AuthenticationSuccessHandlerInterface {
     protected $router;
     protected $authorizationChecker;
     protected $apiCaller;
+    protected $userTokens;
+    protected $session;
 
-    public function __construct(Router $router, AuthorizationChecker $authorizationChecker, ApiCallerInterface $apiCaller) {
+    public function __construct(Router $router, AuthorizationChecker $authorizationChecker, ApiCallerInterface $apiCaller, UserHomeDirService $userHomeDirService, Session $session)
+    {
         $this->router = $router;
         $this->authorizationChecker = $authorizationChecker;
         $this->apiCaller = $apiCaller;
+        $this->userTokens = $userHomeDirService;
+        $this->session = $session;
     }
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token) {
-        $baseUrl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath() . '/webservice/login';
-        $parameters = array(
-            'username' => 'kevindoh26@gmail.com',
-            'password' => 'kevindoh29'
-        );
-
-        //dump($this->apiCaller->call(new HttpGetJson($baseUrl, $request)));
-
+        $user = $token->getUser();
+        $userToken = $this->userTokens->getToken($user);
+        $this->session->set('userToken',$userToken);
         if ($this->authorizationChecker->isGranted('ROLE_ADMIN')) {
             $response = new RedirectResponse($this->router->generate('app_index_user'));
         } else if ($this->authorizationChecker->isGranted('ROLE_USER')) {

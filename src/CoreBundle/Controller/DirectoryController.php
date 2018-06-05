@@ -77,6 +77,31 @@ class DirectoryController extends Controller
         return new JsonResponse(['directories'=>$this->getDirectoryFormat($children),'files'=>$this->getHomeFileFormat($files)]);
     }
 
+    /**
+     * @Rest\Get("/folder/{id}")
+     *requirements={"id" = "\d+"}
+     * @return JsonResponse
+     */
+    public function getFolderContentAction(Request $request){
+
+        $user = $this->get("core_bundle.userprovider")
+            ->loadUserByToken($request->headers->get('authorization'));
+        if(!$user instanceof User) {
+            return $user;
+        }
+
+        $em = $this->getDoctrine()
+            ->getManager();
+
+        $root = $em->getRepository('CoreBundle:Directory')->getFolderRootDir($request->get('id'));
+
+        $files = $em->getRepository('CoreBundle:File')
+            ->getUserHomeFiles($request->get('id'));
+
+
+        return new JsonResponse(['directories'=>$this->getDirectoryFormat($root),'files'=>$this->getHomeFileFormat($files)]);
+    }
+
 
     /**
      * @Rest\Get("/file/folder/{id}")
