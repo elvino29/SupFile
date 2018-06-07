@@ -23,7 +23,7 @@
                                     <div class="fluid file-panel">
                                         <div class="fixed-sm-200 pull-sm-left file-sidebar pull-right">
                                             <div class="pad-btm">
-                                                <a href="#" class="btn btn-block btn-lg btn-info v-middle"><i class="demo-pli-upload-to-cloud"></i>Upload Files</a>
+                                                <a data-toggle="modal" data-target="#uploadmodal" class="btn btn-block btn-lg btn-info v-middle"><i class="demo-pli-upload-to-cloud"></i>Upload Files</a>
                                             </div>
                                         </div>
                                         <div class=" pad-ver">
@@ -50,6 +50,11 @@
                                         </div>
 
                                         <ul id="demo-mail-list" class="file-list">
+
+                                            <div class="embed-responsive embed-responsive-4by3">
+                                                <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0" allowfullscreen></iframe>
+                                            </div>
+
                                             {% for valeur in directories %}
                                                 <!--File list item-->
                                                 <li>
@@ -59,11 +64,11 @@
                                                     </div>
                                                     <div class="file-settings dropdown"><a href="#" data-toggle="dropdown" class="dropdown-toggle">
                                                             <i class="pci-ver-dots"></i>
-                                                          <ul class="dropdown-menu extended logout">
-                                                               <li><a href="#"><i class=" fa fa-suitcase"></i>Profile</a></li>
-                                                               <li><a href="#"><i class="fa fa-cog"></i> Settings</a></li>
-                                                               <li><a href="{{ path('fos_user_security_logout') }}"><i class="fa fa-key"></i> Log Out</a></li>
-                                                           </ul>
+                                                            <ul class="dropdown-menu extended logout">
+                                                                <li><a href="#"><i class=" fa fa-suitcase"></i>Profile</a></li>
+                                                                <li><a href="#"><i class="fa fa-cog"></i> Settings</a></li>
+                                                                <li><a href="{{ path('fos_user_security_logout') }}"><i class="fa fa-key"></i> Log Out</a></li>
+                                                            </ul>
 
                                                         </a></div>
                                                     <div class="file-attach-icon"></div>
@@ -120,16 +125,61 @@
                                                 </div>
                                             </div>
                                         </div>
+
+                                        <div class="modal fade" id="uploadmodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                        <h4 class="modal-title" id="myModalLabel">Upload files</h4>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <section class="panel">
+                                                                    <header class="panel-heading">
+                                                                        Dropzone
+                                                                        <span class="tools pull-right">
+                                                                            <a href="javascript:;" class="fa fa-chevron-down"></a>
+                                                                            <a href="javascript:;" class="fa fa-cog"></a>
+                                                                            <a href="javascript:;" class="fa fa-times"></a>
+                                                                        </span>
+                                                                    </header>
+                                                                    <div class="panel-body">
+                                                                        <form id="upload" method="post" action="" enctype="multipart/form-data">
+                                                                            <div id="drop">
+                                                                                Drop Here
+
+                                                                                <a>Browse</a>
+                                                                                <input type="file" name="upl" multiple="">
+                                                                            </div>
+                                                                            <ul>
+                                                                                <!-- The file uploads will be shown here -->
+                                                                            </ul>
+                                                                        </form>
+                                                                    </div>
+                                                                </section>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-lg btn-danger" data-dismiss="modal">Close</button>
+                                                        <button type="button" class="btn  btn-lg btn-info" id="createdir">Create</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
                     </div>
-                    <!--===================================================-->
-                    <!--End page content-->
+
                 </div>
+                <!--===================================================-->
+                <!--End page content-->
             </div>
+        </div>
         </div>
     </section>
     <!--main content end-->
