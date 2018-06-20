@@ -26,6 +26,7 @@ class DirectoryController extends Controller
 {
 
     use \CoreBundle\Helpers\Formated\DirectoryFormatedHelper;
+    use \CoreBundle\Helpers\Formated\FileFormatedHelper;
     /**
      * @Rest\Get("/folder/user/")
      *
@@ -42,10 +43,63 @@ class DirectoryController extends Controller
         $em = $this->getDoctrine()
             ->getManager();
 
-        $folders = $em->getRepository('CoreBundle:User')
-                     ->getUserFolder($user->getId());
+        $root = $em->getRepository('CoreBundle:Directory')->getUserRootDir($user->getId());
 
-        return new JsonResponse($folders);
+        $children = $em->getRepository('CoreBundle:Directory')->findByParent($root->getId());
+
+        return new JsonResponse($this->getDirectoryFormat($children));
+    }
+
+    /**
+     * @Rest\Get("/folder")
+     *
+     * @return JsonResponse
+     */
+    public function getUserFolderAndFilesAction(Request $request){
+
+        $user = $this->get("core_bundle.userprovider")
+            ->loadUserByToken($request->headers->get('authorization'));
+        if(!$user instanceof User) {
+            return $user;
+        }
+
+        $em = $this->getDoctrine()
+            ->getManager();
+
+        $root = $em->getRepository('CoreBundle:Directory')->getUserRootDir($user->getId());
+
+        $children = $em->getRepository('CoreBundle:Directory')->findByParent($root->getId());
+
+        $files = $em->getRepository('CoreBundle:File')
+            ->getUserHomeFiles($root->getId());
+
+
+        return new JsonResponse(['directories'=>$this->getDirectoryFormat($children),'files'=>$this->getHomeFileFormat($files)]);
+    }
+
+    /**
+     * @Rest\Get("/folder/{id}")
+     *requirements={"id" = "\d+"}
+     * @return JsonResponse
+     */
+    public function getFolderContentAction(Request $request){
+
+        $user = $this->get("core_bundle.userprovider")
+            ->loadUserByToken($request->headers->get('authorization'));
+        if(!$user instanceof User) {
+            return $user;
+        }
+
+        $em = $this->getDoctrine()
+            ->getManager();
+
+        $root = $em->getRepository('CoreBundle:Directory')->getFolderRootDir($request->get('id'));
+
+        $files = $em->getRepository('CoreBundle:File')
+            ->getUserHomeFiles($request->get('id'));
+
+
+        return new JsonResponse(['directories'=>$this->getDirectoryFormat($root),'files'=>$this->getHomeFileFormat($files)]);
     }
 
 

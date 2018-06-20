@@ -32,6 +32,7 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
             ->select('u,d')
             ->join('u.directories','d')
             ->where('u.id = :user')
+            ->andWhere()
             ->setParameter('user',$user)
             ->getQuery()
             ->getResult(AbstractQuery::HYDRATE_ARRAY);

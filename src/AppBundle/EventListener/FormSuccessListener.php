@@ -2,9 +2,13 @@
 
 namespace AppBundle\EventListener;
 
+
+use AppBundle\Services\UserHomeDirService;
+use CoreBundle\Entity\User;
 use FOS\UserBundle\Event\FilterUserResponseEvent;
 use FOS\UserBundle\FOSUserEvents;
 use FOS\UserBundle\Event\FormEvent;
+use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -15,10 +19,12 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 class FormSuccessListener implements EventSubscriberInterface
 {
     private $router;
+    private $userhome;
 
-    public function __construct(UrlGeneratorInterface $router)
+    public function __construct(UrlGeneratorInterface $router,  UserHomeDirService $userHomeDirService)
     {
         $this->router = $router;
+        $this->userhome = $userHomeDirService;
     }
 
     /**
@@ -28,20 +34,15 @@ class FormSuccessListener implements EventSubscriberInterface
     {
         return array(
             FOSUserEvents::REGISTRATION_COMPLETED => array('onRegistrationCompleted',-10),
-            FOSUserEvents::SECURITY_IMPLICIT_LOGIN => array('onLogin',-10),
+
         );
     }
 
     public function onRegistrationCompleted(FilterUserResponseEvent $event)
     {
-        $user = $event->getUser();
 
-        //Créer le dossier pour l'utilisateur
-        dump('test');exit();
+        $this->userhome->createHomeDir($event->getUser());
+
     }
 
-    public function onLogin(FilterUserResponseEvent $event)
-    {
-        dump($event);exit();
-    }
 }

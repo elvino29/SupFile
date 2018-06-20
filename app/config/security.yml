@@ -18,11 +18,17 @@ security:
                 csrf_token_generator: security.csrf.token_manager
                 success_handler: authentication.handler.login_success_handler
 
-            logout:       true
+            logout:
+                success_handler: app.logoutlistener
             anonymous:    true
+            logout_on_user_change: true
 
     access_control:
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/, role: ROLE_ADMIN }
+        - { path: ^/app/home, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/app/*, role: ROLE_USER }
+
+

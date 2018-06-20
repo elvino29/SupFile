@@ -14,32 +14,6 @@ use Doctrine\ORM\AbstractQuery;
 class DirectoryRepository extends \Doctrine\ORM\EntityRepository
 {
 
-//   public function getUserFolder($user) {
-//
-//        $em = $this->getEntityManager()
-//            ->createQuery(/** @Lang text */
-//                "SELECT d FROM CoreBundle\Entity\Directory d
-//                     JOIN CoreBundle\Entity\User u
-//                     WHERE d.user = u.id
-//                     AND d.user = :user
-//                     ORDER BY d.id")
-//            ->setParameter('user',$user)
-//            //->getSQL();
-//           ->getResult();
-//
-//        $em = $this->createQueryBuilder('d')
-//            ->select('d,u')
-//            ->join('d.user','d')
-//            ->where('u.id = :user')
-//            ->setParameter('user',$user)
-//            ->getQuery()
-//            ->getResult(AbstractQuery::HYDRATE_ARRAY);
-//
-//
-//        return $em;
-//
-//
-//    }
 
    public function getFolderAndFiles($folder):array {
 
@@ -54,6 +28,28 @@ class DirectoryRepository extends \Doctrine\ORM\EntityRepository
 
        return $em;
    }
+
+
+    public function getUserRootDir($userId)
+   {
+       return $this->createQueryBuilder('d')
+           ->select('d')
+           ->where('d.user = :userId')
+           ->andWhere('d.parent is NULL')
+           ->setParameter('userId', $userId)
+           ->getQuery()
+           ->getSingleResult();
+   }
+
+    public function getFolderRootDir($parentId)
+    {
+        return $this->createQueryBuilder('d')
+            ->select('d')
+            ->where('d.parent = :parent')
+            ->setParameter('parent', $parentId)
+            ->getQuery()
+            ->getResult();
+    }
 
 
 }
