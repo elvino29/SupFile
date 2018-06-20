@@ -1,7 +1,7 @@
 {% extends "AppBundle::layout_user.html.twig" %}
 {% block title %}
     {{ parent() }}
-    - Accueil_User
+    - Accueil
 {% endblock %}
 
 {% block body %}
@@ -28,9 +28,9 @@
                                         </div>
                                         <div class=" pad-ver">
                                             <ol class="breadcrumb">
-                                                <li><a href="#">Home</a></li>
-                                                <li><a href="#">App Views</a></li>
-                                                <li class="active">File Manager</li>
+                                                <li><a href="#">Accueil</a></li>
+                                                <li><a href="#">Mes Fichiers</a></li>
+                                                <!--<li class="active">File Manager</li>-->
                                             </ol>
                                         </div>
                                         <div class="file-toolbar">
@@ -51,10 +51,6 @@
 
                                         <ul id="demo-mail-list" class="file-list">
 
-                                            <div class="embed-responsive embed-responsive-4by3">
-                                                <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0" allowfullscreen></iframe>
-                                            </div>
-
                                             {% for valeur in directories %}
                                                 <!--File list item-->
                                                 <li>
@@ -62,15 +58,17 @@
                                                         <input id="{{ valeur.id }}" class="magic-checkbox" type="checkbox">
                                                         <label for="{{ valeur.id }}"></label>
                                                     </div>
-                                                    <div class="file-settings dropdown"><a href="#" data-toggle="dropdown" class="dropdown-toggle">
-                                                            <i class="pci-ver-dots"></i>
+                                                    <div class="file-settings dropdown">
+                                                        <a href="#" data-toggle="dropdown" class="dropdown-toggle">
+                                                            <i class="pci-ver-dots"></i></a>
                                                             <ul class="dropdown-menu extended logout">
-                                                                <li><a href="#"><i class=" fa fa-suitcase"></i>Profile</a></li>
-                                                                <li><a href="#"><i class="fa fa-cog"></i> Settings</a></li>
-                                                                <li><a href="{{ path('fos_user_security_logout') }}"><i class="fa fa-key"></i> Log Out</a></li>
+                                                                <li><a href="#"><i class="fa fa-edit"></i> Modifier</a></li>
+                                                                <li><a href="#"><i class="fa fa-download"></i>Télécharger</a></li>
+                                                                <li><a href="#"><i class="fa fa-trash"></i> Supprimer</a></li>
                                                             </ul>
 
-                                                        </a></div>
+
+                                                    </div>
                                                     <div class="file-attach-icon"></div>
                                                     <a href="#" class="file-details">
                                                         <div class="media-block">
@@ -111,7 +109,7 @@
                                                 <div class="modal-content">
                                                     <div class="modal-header">
                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                                        <h4 class="modal-title" id="myModalLabel">New Directory</h4>
+                                                        <h4 class="modal-title" id="myModalLabel">Nouveau Dossier</h4>
                                                     </div>
                                                     <div class="modal-body">
                                                         <div class="form-group">
@@ -131,20 +129,12 @@
                                                 <div class="modal-content">
                                                     <div class="modal-header">
                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                                        <h4 class="modal-title" id="myModalLabel">Upload files</h4>
+                                                        <h4 class="modal-title" id="myModalLabel">Upload des fichiers</h4>
                                                     </div>
                                                     <div class="modal-body">
                                                         <div class="row">
                                                             <div class="col-sm-12">
                                                                 <section class="panel">
-                                                                    <header class="panel-heading">
-                                                                        Dropzone
-                                                                        <span class="tools pull-right">
-                                                                            <a href="javascript:;" class="fa fa-chevron-down"></a>
-                                                                            <a href="javascript:;" class="fa fa-cog"></a>
-                                                                            <a href="javascript:;" class="fa fa-times"></a>
-                                                                        </span>
-                                                                    </header>
                                                                     <div class="panel-body">
                                                                         <form id="upload" method="post" action="" enctype="multipart/form-data">
                                                                             <div id="drop">
@@ -164,7 +154,7 @@
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-lg btn-danger" data-dismiss="modal">Close</button>
-                                                        <button type="button" class="btn  btn-lg btn-info" id="createdir">Create</button>
+                                                        <button type="button" class="btn  btn-lg btn-info" id="createdir">Upload</button>
                                                     </div>
                                                 </div>
                                             </div>
