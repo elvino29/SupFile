@@ -31,6 +31,7 @@ trait FileFormatedHelper {
 
     public function getHomeFileFormat(array $file){
 
+
         $formated = [];
         foreach ($file as $data){
 
@@ -39,6 +40,7 @@ trait FileFormatedHelper {
                 'name' => $data->getName(),
                 'path' => $data->getPath(),
                 'updateAt' => $data->getUpdateAt(),
+               'Parent' => $data->getDirectory()->getId(),
                 'type' => $data->getType(),
             );
         }
