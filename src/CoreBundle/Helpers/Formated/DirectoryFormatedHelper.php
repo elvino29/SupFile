@@ -20,7 +20,6 @@ trait DirectoryFormatedHelper {
                 'name' => $folder->getName(),
                 'path' => $folder->getPath(),
                 'updateAt' => $folder->getUpdateAt(),
-                'Parent' => $folder->getParent()->getId(),
                 'type' => 'directory'
             );
         }
