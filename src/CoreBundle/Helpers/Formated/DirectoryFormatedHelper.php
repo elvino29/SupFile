@@ -12,6 +12,7 @@ trait DirectoryFormatedHelper {
 
     public function getDirectoryFormat(array $directory){
 
+
         $formated = [];
         foreach ($directory as $folder){
             $formated[] = array(
@@ -19,6 +20,7 @@ trait DirectoryFormatedHelper {
                 'name' => $folder->getName(),
                 'path' => $folder->getPath(),
                 'updateAt' => $folder->getUpdateAt(),
+                'Parent' => $folder->getParent()->getId(),
                 'type' => 'directory'
             );
         }
