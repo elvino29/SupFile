@@ -74,7 +74,7 @@ class DirectoryController extends Controller
             ->getUserHomeFiles($root->getId());
 
 
-        return new JsonResponse(['directories'=>$this->getDirectoryFormat($children),'files'=>$this->getHomeFileFormat($files)]);
+        return new JsonResponse(['directories'=>$this->getDirectoryFormat($children),'files'=>$this->getHomeFileFormat($files), 'dirId'=>$root->getId()]);
     }
 
     /**
@@ -95,11 +95,20 @@ class DirectoryController extends Controller
 
         $root = $em->getRepository('CoreBundle:Directory')->getFolderRootDir($request->get('id'));
 
+        $parent = $em->getRepository('CoreBundle:Directory')->getParentId($request->get('id'));
+
         $files = $em->getRepository('CoreBundle:File')
             ->getUserHomeFiles($request->get('id'));
 
 
-        return new JsonResponse(['directories'=>$this->getDirectoryFormat($root),'files'=>$this->getHomeFileFormat($files)]);
+        if ($parent->getParent() == null)
+        {
+        $parentId = null;
+        }else{
+            $parentId = $parent->getParent()->getId();
+        }
+
+        return new JsonResponse(['directories'=>$this->getDirectoryFormat($root),'files'=>$this->getHomeFileFormat($files),'parent'=>$parentId,'dirId'=>$parent->getId()]);
     }
 
 

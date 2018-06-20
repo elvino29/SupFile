@@ -51,5 +51,13 @@ class DirectoryRepository extends \Doctrine\ORM\EntityRepository
             ->getResult();
     }
 
+    public function getParentId($id){
 
+       return $this->createQueryBuilder('d')
+           ->select('d')
+           ->where('d.id = :id')
+           ->setParameter('id', $id)
+           ->getQuery()
+           ->getSingleResult();
+    }
 }
