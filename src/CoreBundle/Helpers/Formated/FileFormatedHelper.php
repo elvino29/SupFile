@@ -40,7 +40,6 @@ trait FileFormatedHelper {
                 'name' => $data->getName(),
                 'path' => $data->getPath(),
                 'updateAt' => $data->getUpdateAt(),
-               'Parent' => $data->getDirectory()->getId(),
                 'type' => $data->getType(),
             );
         }
