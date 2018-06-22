@@ -5,6 +5,7 @@
 {% endblock %}
 
 {% block body %}
+   <!-- <div id="load" style="display: none;"></div>-->
     <!--main content start-->
     <section id="main-content">
     <section class="wrapper">
@@ -28,7 +29,7 @@
                                         </div>
                                         <div class=" pad-ver">
                                             <ol class="breadcrumb">
-                                                <li><a href="#">Accueil</a></li>
+                                                <li><a href="">Accueil</a></li>
                                                 <li><a href="#">Mes Fichiers</a></li>
                                                 <!--<li class="active">File Manager</li>-->
                                             </ol>
@@ -49,17 +50,18 @@
                                             </div>
                                         </div>
 
+
                                         <ul id="demo-mail-list" class="file-list">
 
                                             {% for valeur in directories %}
                                                 <!--File list item-->
-                                                <li>
+                                                <li class="art-vmenu">
                                                     <div class="file-control">
                                                         <input id="{{ valeur.id }}" class="magic-checkbox" type="checkbox">
                                                         <label for="{{ valeur.id }}"></label>
                                                     </div>
                                                     <div class="file-settings dropdown">
-                                                        <a href="#" data-toggle="dropdown" class="dropdown-toggle">
+                                                        <a href="#"  data-toggle="dropdown" class="dropdown-toggle">
                                                             <i class="pci-ver-dots"></i></a>
                                                             <ul class="dropdown-menu extended logout">
                                                                 <li><a href="#"><i class="fa fa-edit"></i> Modifier</a></li>
@@ -70,7 +72,7 @@
 
                                                     </div>
                                                     <div class="file-attach-icon"></div>
-                                                    <a href="#" class="file-details">
+                                                    <a href="#" class="file-details" id="folderlink" data-folder="{{  valeur.id  }}" data-token="{{ userTokent }}">
                                                         <div class="media-block">
                                                             <div class="media-left"><i class="demo-psi-folder"></i></div>
                                                             <div class="media-body">
@@ -84,7 +86,7 @@
 
                                             {% for valeur in files %}
                                                 <!--File list item-->
-                                                <li>
+                                                <li id="sortable">
                                                     <div class="file-control">
                                                         <input id="{{ valeur.id }}" class="magic-checkbox" type="checkbox">
                                                         <label for="{{ valeur.id }}"></label>
@@ -123,6 +125,7 @@
                                                 </div>
                                             </div>
                                         </div>
+
 
                                         <div class="modal fade" id="uploadmodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                                             <div class="modal-dialog" role="document">
