@@ -3144,3 +3144,13 @@ div#graph1, div#graph4, div#graph5, div#graph6, div#graph7, div#graph8, div#grap
     padding: 0;
 }
 }
+
+#load{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    z-index: 9999;
+    background:url("../../../bundles/img/back/reload.gif") no-repeat 50% 50% rgba(255,255,255,0.9);
+}
