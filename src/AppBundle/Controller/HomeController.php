@@ -53,6 +53,10 @@ class HomeController extends Controller
         return $this->render('AppBundle:Home:dropzone.htlm.twig');
     }
 
+    public function toProfileAction(){
+        return $this->render('AppBundle:Home:profile.html.twig');
+    }
+
 
 
 }

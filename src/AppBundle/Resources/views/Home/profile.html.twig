@@ -1,0 +1,39 @@
+{% extends "AppBundle::layout_user.html.twig" %}
+
+    {% block title %}
+        {{ parent() }} - Profile
+    {% endblock %}
+
+    {% block body %}
+<section id="main-content">
+    <section class="wrapper">
+        <div class="row">
+            <div class="panel-body">
+                <section id="about" class="section section-about wow fadeInUp">
+                    <div class="profile">
+                            <div id="sc-edprofile">
+                                <h1>Edit Profil Form</h1>
+                                <div class="sc-container">
+                                    <div class="photo-profile">
+                                    <img alt="" src="http://www.highcountryconservation.org/wp-content/uploads/sites/16/2017/08/generic_image_missing-profile.jpg">
+                                    </div>
+                                    <input type="text" placeholder="Username" />
+                                    <input type="text" placeholder="Email Address" />
+                                    <input type="password" placeholder="Password" />
+                                    <input type="text" placeholder="First Name" />
+                                    <input type="text" placeholder="Last Name" />
+                                    <input type="submit" value="Register" />
+                                </div>
+                            </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </section>
+</section>
+
+    {% endblock %}
+
+    {% block javascript %}
+
+    {% endblock %}

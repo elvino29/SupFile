@@ -23,3 +23,7 @@ app_dropzone:
     defaults:
         _controller: AppBundle:Home:toDropzone
 
+app_profile:
+    path:      /profile
+    defaults:
+        _controller: AppBundle:Home:toProfile
