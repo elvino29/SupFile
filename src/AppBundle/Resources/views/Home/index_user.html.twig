@@ -135,29 +135,14 @@
                                                         <h4 class="modal-title" id="myModalLabel">Upload des fichiers</h4>
                                                     </div>
                                                     <div class="modal-body">
-                                                        <div class="row">
-                                                            <div class="col-sm-12">
-                                                                <section class="panel">
-                                                                    <div class="panel-body">
-                                                                        <form id="upload" method="post" action="" enctype="multipart/form-data">
-                                                                            <div id="drop">
-                                                                                Drop Here
-
-                                                                                <a>Browse</a>
-                                                                                <input type="file" name="upl" multiple="">
-                                                                            </div>
-                                                                            <ul>
-                                                                                <!-- The file uploads will be shown here -->
-                                                                            </ul>
-                                                                        </form>
-                                                                    </div>
-                                                                </section>
+                                                        <form action="/" class="dropzone">
+                                                            <div class="">
+                                                                <input name="file" type="file" multiple />
                                                             </div>
-                                                        </div>
+                                                        </form>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-lg btn-danger" data-dismiss="modal">Close</button>
-                                                        <button type="button" class="btn  btn-lg btn-info" id="createdir">Upload</button>
                                                     </div>
                                                 </div>
                                             </div>
