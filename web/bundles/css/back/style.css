@@ -37,6 +37,94 @@ ul,label{
 body a:hover{
 	text-decoration:none;
 }
+
+/* Profile */
+.profilepress-edit-profile-status {
+    width: 400px;
+    text-align: center;
+    background-color: #e74c3c;
+    color: #ffffff;
+    border: medium none;
+    border-radius: 4px;
+    font-size: 17px;
+    font-weight: normal;
+    line-height: 1.4;
+    padding: 8px 5px;
+    margin: auto;
+}
+
+.memo-edprofile-success {
+    width: 400px;
+    text-align: center;
+    background-color: #2ecc71;
+    color: #ffffff;
+    border: medium none;
+    border-radius: 4px;
+    font-size: 17px;
+    font-weight: normal;
+    line-height: 1.4;
+    padding: 8px 5px;
+    margin: auto;
+}
+
+#sc-edprofile {
+    background: #f0f0f0;
+    width: 600px;
+    margin: 0 auto;
+    margin-top: 8px;
+    margin-bottom: 2%;
+    transition: opacity 1s;
+    -webkit-transition: opacity 1s;
+}
+
+#sc-edprofile h1 {
+    background: #b86662;
+    padding: 20px 0;
+    font-size: 140%;
+    font-weight: 300;
+    text-align: center;
+    color: #fff;
+}
+
+div#sc-edprofile .sc-container {
+    background: #ffffff;
+    padding: 6% 4%;
+}
+
+div#sc-edprofile input[type="email"],
+div#sc-edprofile input[type="text"],
+div#sc-edprofile input[type="password"], div#sc-edprofile select, div#sc-edprofile textarea {
+    width: 92%;
+    background: #fff;
+    margin-bottom: 4%;
+    border: 1px solid #ccc;
+    padding: 4%;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 95%;
+    color: #555;
+    margin-left: 15px;
+}
+
+div#sc-edprofile select {
+    width: 100%;
+}
+
+div#sc-edprofile textarea {
+    height: 100px;
+}
+
+div#sc-edprofile input[type="submit"] {
+    width: 100%;
+    background: #3399cc;
+    border: 0;
+    padding: 4%;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 100%;
+    color: #fff;
+    cursor: pointer;
+    transition: background .3s;
+    -webkit-transition: background .3s;
+}
 	/*sidebar navigation*/
 #sidebar {
     width:240px;
@@ -309,7 +397,7 @@ ul.top-menu>li>a:hover,ul.top-menu>li>a:focus {
     -webkit-border-radius:5px;
     background:#fff;
     border:none;
-    left:-10px;
+    left:-25px;
 }
 .notify-row .notification span.label {
     display:inline-block;
@@ -3153,4 +3241,84 @@ div#graph1, div#graph4, div#graph5, div#graph6, div#graph7, div#graph8, div#grap
     left: 0px;
     z-index: 9999;
     background:url("../../../bundles/img/back/reload.gif") no-repeat 50% 50% rgba(255,255,255,0.9);
+
+}
+
+/**** ABOUT ****/
+
+.section-about {
+    margin-bottom: 75px;
+}
+
+.section-about .photo-profile {
+    margin-bottom: 20px;
+}
+
+.section-about .photo-profile img {
+    display: block;
+    width: 100%;
+    box-shadow: 0 0 5px rgba(0,0,0,.4);
+}
+
+.section-about .download-resume {
+    margin-bottom: 25px;
+    padding: 17px 5px;
+    text-align: center;
+    box-shadow: 0 0 5px rgba(0,0,0,.4);
+    transition: all .3s;
+}
+
+.section-about .download-resume:hover {
+    box-shadow: 0 0 8px rgba(0,0,0,.30),0 0 12px rgba(0,0,0,.20);
+}
+
+.section-about .text-download {
+    padding-left: 8px;
+}
+
+.section-about .available {
+    text-align: center;
+}
+
+.section-about h2 {
+    padding-bottom: 4px;
+}
+
+.section-about h3 {
+    padding-bottom: 20px;
+}
+
+.section-about p {
+    padding-bottom: 27px;
+}
+
+.section-about .li-info {
+    padding-bottom: 10px;
+}
+
+.section-about .title-info {
+    display: inline-block;
+    width: 80px;
+}
+
+.section-about .title-links {
+    display: inline-block;
+}
+
+.section-about .ul-social-links {
+    margin-top: 10px;
+}
+
+.section-about .li-social-links {
+    display: inline-block;
+    margin: 0 5px 12px;
+}
+
+.section-about .li-social-links a {
+    display: inline-block;
+    width: 34px;
+    height: 34px;
+    line-height: 34px;
+    text-align: center;
+    transition: all .2s;
 }
