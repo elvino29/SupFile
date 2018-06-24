@@ -1,9 +1,4 @@
 $(document).ready(function () {
-    var dropUrl = window.location.origin = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port : '');
-    var token = document.getElementById('btnupload').dataset.token;
-    var mydir = document.getElementById('btnupload').dataset.folder;
-
-
     $( function() {
     $( "#demo-mail-list" ).sortable({
         revert: true
@@ -130,10 +125,6 @@ $('#createdir').click(function (event) {
 });
 
 var onDoubleClick = function (event) {
-
-    var homedirectory = document.getElementById('newdir');
-
-
     var dir = $(this).find('a#folderlink');
     var donnee = dir.data('folder');
     var token = dir.data('token');
@@ -222,8 +213,6 @@ var onDoubleClick = function (event) {
 
 
             $("#demo-mail-list").html(dirHtml + fileHtml);
-            homedirectory.dataset.folder = data.dirId;
-            window.mydir = homedirectory.dataset.folder;
             $("ul#demo-mail-list li.art-vmenu").on('dblclick', onDoubleClick);
 
         },
@@ -232,14 +221,7 @@ var onDoubleClick = function (event) {
         }
     });
 };
-// appel de l'api concernant l'upload
-var uploadedDir = document.getElementById('newdir');
 
-var uploadDropzone = new Dropzone("#updropzone",{
-    url: dropUrl + "/webservice/upload/"+window.mydir,
-    withCredentials: false,
-    headers:{"Authorization": token}
-});
 $("ul#demo-mail-list li.art-vmenu").dblclick(onDoubleClick);
 
    /* $(document).ajaxStart(function(){
@@ -252,3 +234,5 @@ $("ul#demo-mail-list li.art-vmenu").dblclick(onDoubleClick);
     });*/
 
 });
+
+
