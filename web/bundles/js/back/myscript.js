@@ -234,3 +234,5 @@ $("ul#demo-mail-list li.art-vmenu").dblclick(onDoubleClick);
     });*/
 
 });
+
+
