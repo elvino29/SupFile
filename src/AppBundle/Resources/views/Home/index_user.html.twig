@@ -24,7 +24,7 @@
                                     <div class="fluid file-panel">
                                         <div class="fixed-sm-200 pull-sm-left file-sidebar pull-right">
                                             <div class="pad-btm">
-                                                <a data-toggle="modal" data-target="#uploadmodal" class="btn btn-block btn-lg btn-info v-middle"><i class="demo-pli-upload-to-cloud"></i>Upload Files</a>
+                                                <a data-toggle="modal" id="btnupload" data-token="{{ userTokent }}" data-folder="{{ homedirId }}" data-target="#uploadmodal" class="btn btn-block btn-lg btn-info v-middle"><i class="demo-pli-upload-to-cloud"></i>Upload Files</a>
                                             </div>
                                         </div>
                                         <div class=" pad-ver">
@@ -135,11 +135,9 @@
                                                         <h4 class="modal-title" id="myModalLabel">Upload des fichiers</h4>
                                                     </div>
                                                     <div class="modal-body">
-                                                        <form action="/" class="dropzone">
-                                                            <div class="">
-                                                                <input name="file" type="file" multiple />
-                                                            </div>
-                                                        </form>
+                                                        <div class="col-sm-12 dropzone" id="updropzone" style="height:auto;border:solid 1px #ccc;">
+                                                            <input type="file" name="file" />
+                                                        </div>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-lg btn-danger" data-dismiss="modal">Close</button>
