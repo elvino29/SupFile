@@ -52,7 +52,8 @@ $(document).ready(function () {
                                 "                                                        <a href=\"#\" data-toggle=\"dropdown\" class=\"dropdown-toggle\">\n" +
                                 "                                                            <i class=\"pci-ver-dots\"></i></a>\n" +
                                 "                                                            <ul class=\"dropdown-menu extended logout\">\n" +
-                                "                                                                <li><a href=\"#\"><i class=\"fa fa-edit\"></i> Modifier</a></li>\n" +
+                                "                                                                <li><a href=\"#\"><i class=\"fa fa-edit\"></i> Renommer</a></li>\n" +
+                                "                                                                <li><a href=\"#\"><i class=\"fa fa-share\"></i> Partager</a></li>\n" +
                                 "                                                                <li><a href=\"#\"><i class=\"fa fa-download\"></i>Télécharger</a></li>\n" +
                                 "                                                                <li><a href=\"#\"><i class=\"fa fa-trash\"></i> Supprimer</a></li>\n" +
                                 "                                                            </ul>\n" +
@@ -95,7 +96,18 @@ $(document).ready(function () {
                                 "                                                        <input id=\""+value.id+"\" class=\"magic-checkbox\" type=\"checkbox\">\n" +
                                 "                                                        <label for=\""+value.id+"\"></label>\n" +
                                 "                                                    </div>\n" +
-                                "                                                    <div class=\"file-settings\"><a href=\"#\"><i class=\"pci-ver-dots\"></i></a></div>\n" +
+                                "                                                     <div class=\"file-settings dropdown\">\n" +
+                                "                                                        <a href=\"#\" data-toggle=\"dropdown\" class=\"dropdown-toggle\">\n" +
+                                "                                                            <i class=\"pci-ver-dots\"></i></a>\n" +
+                                "                                                            <ul class=\"dropdown-menu extended logout\">\n" +
+                                "                                                                <li><a href=\"#\"><i class=\"fa fa-edit\"></i> Renommer</a></li>\n" +
+                                "                                                                <li><a href=\"#\"><i class=\"fa fa-share\"></i> Partager</a></li>\n" +
+                                "                                                                <li><a href=\"#\"><i class=\"fa fa-download\"></i>Télécharger</a></li>\n" +
+                                "                                                                <li><a href=\"#\"><i class=\"fa fa-trash\"></i> Supprimer</a></li>\n" +
+                                "                                                            </ul>\n" +
+                                "\n" +
+                                "\n" +
+                                "                                                    </div>\n" + +
                                 "                                                    <div class=\"file-attach-icon\"></div>\n" +
                                 "                                                    <a href=\"#\" class=\"file-details\" data-id=\""+value.id+"\">\n" +
                                 "                                                        <div class=\"media-block\">\n" +
@@ -157,11 +169,12 @@ $(document).ready(function () {
                         "                                                        <input id=\""+value.id+"\" class=\"magic-checkbox\" type=\"checkbox\">\n" +
                         "                                                        <label for=\""+value.id+"\"></label>\n" +
                         "                                                    </div>\n" +
-                        "                                                    <div class=\"file-settings dropdown\">\n" +
+                        "                                                     <div class=\"file-settings dropdown\">\n" +
                         "                                                        <a href=\"#\" data-toggle=\"dropdown\" class=\"dropdown-toggle\">\n" +
                         "                                                            <i class=\"pci-ver-dots\"></i></a>\n" +
                         "                                                            <ul class=\"dropdown-menu extended logout\">\n" +
-                        "                                                                <li><a href=\"#\"><i class=\"fa fa-edit\"></i> Modifier</a></li>\n" +
+                        "                                                                <li><a href=\"#\"><i class=\"fa fa-edit\"></i> Renommer</a></li>\n" +
+                        "                                                                <li><a href=\"#\"><i class=\"fa fa-share\"></i> Partager</a></li>\n" +
                         "                                                                <li><a href=\"#\"><i class=\"fa fa-download\"></i>Télécharger</a></li>\n" +
                         "                                                                <li><a href=\"#\"><i class=\"fa fa-trash\"></i> Supprimer</a></li>\n" +
                         "                                                            </ul>\n" +
@@ -204,7 +217,18 @@ $(document).ready(function () {
                         "                                                        <input id=\""+value.id+"\" class=\"magic-checkbox\" type=\"checkbox\">\n" +
                         "                                                        <label for=\""+value.id+"\"></label>\n" +
                         "                                                    </div>\n" +
-                        "                                                    <div class=\"file-settings\"><a href=\"#\"><i class=\"pci-ver-dots\"></i></a></div>\n" +
+                        "                                                    <div class=\"file-settings dropdown\">\n" +
+                        "                                                        <a href=\"#\" data-toggle=\"dropdown\" class=\"dropdown-toggle\">\n" +
+                        "                                                            <i class=\"pci-ver-dots\"></i></a>\n" +
+                        "                                                            <ul class=\"dropdown-menu extended logout\">\n" +
+                        "                                                                <li><a href=\"#\"><i class=\"fa fa-edit\"></i> Renommer</a></li>\n" +
+                        "                                                                <li><a href=\"#\"><i class=\"fa fa-share\"></i> Partager</a></li>\n" +
+                        "                                                                <li><a href=\"#\"><i class=\"fa fa-download\"></i>Télécharger</a></li>\n" +
+                        "                                                                <li><a href=\"#\"><i class=\"fa fa-trash\"></i> Supprimer</a></li>\n" +
+                        "                                                            </ul>\n" +
+                        "\n" +
+                        "\n" +
+                        "                                                    </div>\n" +
                         "                                                    <div class=\"file-attach-icon\"></div>\n" +
                         "                                                    <a href=\"#\" class=\"file-details\" data-id=\""+value.id+"\">\n" +
                         "                                                        <div class=\"media-block\">\n" +

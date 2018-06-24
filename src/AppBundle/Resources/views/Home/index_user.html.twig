@@ -64,7 +64,8 @@
                                                         <a href="#"  data-toggle="dropdown" class="dropdown-toggle">
                                                             <i class="pci-ver-dots"></i></a>
                                                             <ul class="dropdown-menu extended logout">
-                                                                <li><a href="#"><i class="fa fa-edit"></i> Modifier</a></li>
+                                                                <li><a href="#"><i class="fa fa-edit"></i> Renommer</a></li>
+                                                                <li><a href="#"><i class="fa fa-share"></i> Partager</a></li>
                                                                 <li><a href="#"><i class="fa fa-download"></i>Télécharger</a></li>
                                                                 <li><a href="#"><i class="fa fa-trash"></i> Supprimer</a></li>
                                                             </ul>
@@ -91,7 +92,17 @@
                                                         <input id="{{ valeur.id }}" class="magic-checkbox" type="checkbox">
                                                         <label for="{{ valeur.id }}"></label>
                                                     </div>
-                                                    <div class="file-settings"><a href="#"><i class="pci-ver-dots"></i></a></div>
+                                                    <div class="file-settings dropdown">
+                                                        <a href="#"  data-toggle="dropdown" class="dropdown-toggle">
+                                                            <i class="pci-ver-dots"></i></a>
+                                                        <ul class="dropdown-menu extended logout">
+                                                            <li><a href="#"><i class="fa fa-edit"></i> Renommer</a></li>
+                                                            <li><a href="#"><i class="fa fa-share"></i> Partager</a></li>
+                                                            <li><a href="#"><i class="fa fa-download"></i>Télécharger</a></li>
+                                                            <li><a href="#"><i class="fa fa-trash"></i> Supprimer</a></li>
+                                                        </ul>
+
+                                                    </div>
                                                     <div class="file-attach-icon"></div>
                                                     <a href="#" class="file-details" data-id="{{ valeur.id }}">
                                                         <div class="media-block">
