@@ -302,7 +302,34 @@ class DirectoryController extends Controller
         }
 
     }
+//supprimer un dossier
+    /**
+     * @Rest\Delete("/folder/remove")
+     */
 
+    public function removeDirectory(Request $request)
+    {
+        $folder= new Directory();
+        $user = $this->get("core_bundle.userprovider")
+            ->loadUserByToken($request->headers->get('authorization'));
+        if(!$user instanceof User) {
+            return $user;
+        }
+        $em = $this->getDoctrine()->getManager();
+        $folder= $em->getRepository('CoreBundle:Directory')->find($request->get('id'));
+
+        $file_path = $folder->getPath() ;
+        chdir($file_path);
+        chown($file_path,465);
+        if(file_exists($file_path))
+            unlink($file_path);
+
+        if ($folder) {
+            $em->remove($folder);
+            $em->flush();
+        }
+        return new JsonResponse(['message' => 'Delete Succeded !'], Response::HTTP_OK);
+    }
 
 
 
