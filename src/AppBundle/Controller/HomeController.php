@@ -11,6 +11,11 @@ namespace AppBundle\Controller;
 
 use CoreBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class HomeController extends Controller
 {
@@ -52,6 +57,30 @@ class HomeController extends Controller
     public function toDropzoneAction(){
         return $this->render('AppBundle:Home:dropzone.htlm.twig');
     }
+
+    public function downloadFileAction(Request $request){
+
+        //création du path
+        $em = $this->getDoctrine()->getManager();
+        $file = $em->getRepository('CoreBundle:File')->find($request->get('id'));
+
+        $path = $file->getPath();
+
+        $fileSystem = new Filesystem();
+        //  verifie si le fichier existe et on le télécharge sinon un msg d'erreur
+        try{
+            if($fileSystem->exists($path))
+            {
+
+                return $this->get('nzo_file_downloader')->downloadFile($path, $file->getName().'.'.$file->getType(), false);
+            }
+            return new JsonResponse(['message'=> 'File Not exists !'], Response::HTTP_NOT_FOUND);
+        }catch (IOExceptionInterface $exception){
+            return new JsonResponse(['message'=> $exception->getMessage()], Response::HTTP_NOT_FOUND);
+        }
+
+    }
+
 
 
 

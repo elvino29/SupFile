@@ -23,3 +23,12 @@ app_dropzone:
     defaults:
         _controller: AppBundle:Home:toDropzone
 
+app_download:
+    path:      /download
+    defaults:
+        _controller: AppBundle:Home:downloadFile
+
+app_delete:
+    path:      /delete
+    defaults:
+        _controller: AppBundle:Home:deleteFile

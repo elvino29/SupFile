@@ -30,7 +30,7 @@
                                         <div class=" pad-ver">
                                             <ol class="breadcrumb">
                                                 <li><a href="">Accueil</a></li>
-                                                <li><a href="#">Mes Fichiers</a></li>
+                                                <li><a href="#">Mes Ressources</a></li>
                                                 <!--<li class="active">File Manager</li>-->
                                             </ol>
                                         </div>
@@ -42,11 +42,11 @@
                                             <div class="btn-file-toolbar">
                                                 <a class="btn btn-icon add-tooltip" data-original-title="New Folder" data-toggle="modal" data-target="#foldermodal"><i class="icon-2x demo-pli-folder"></i></a>
                                                 <a class="btn btn-icon add-tooltip" href="#" data-original-title="New File" data-toggle="tooltip"><i class="icon-2x demo-pli-file-add"></i></a>
-                                                <a class="btn btn-icon add-tooltip" href="#" data-original-title="Edit File" data-toggle="tooltip"><i class="icon-2x demo-pli-file-edit"></i></a>
+                                               <!-- <a class="btn btn-icon add-tooltip" href="#" data-original-title="Edit File" data-toggle="tooltip"><i class="icon-2x demo-pli-file-edit"></i></a>-->
                                             </div>
                                             <div class="btn-file-toolbar pull-right">
-                                                <a class="btn btn-icon add-tooltip" href="#" data-original-title="Delete" data-toggle="tooltip"><i class="icon-2x demo-pli-recycling"></i></a>
-                                                <a class="btn btn-icon add-tooltip" href="#" data-original-title="Download" data-toggle="tooltip"><i class="icon-2x demo-pli-download-from-cloud"></i></a>
+                                                <!-- <a class="btn btn-icon add-tooltip" href="#" data-original-title="Delete" data-toggle="tooltip"><i class="icon-2x demo-pli-recycling"></i></a>-->
+                                                <!-- <a class="btn btn-icon add-tooltip" href="#" data-original-title="Download" data-toggle="tooltip"><i class="icon-2x demo-pli-download-from-cloud"></i></a>-->
                                             </div>
                                         </div>
 
@@ -64,9 +64,10 @@
                                                         <a href="#"  data-toggle="dropdown" class="dropdown-toggle">
                                                             <i class="pci-ver-dots"></i></a>
                                                             <ul class="dropdown-menu extended logout">
-                                                                <li><a href="#"><i class="fa fa-edit"></i> Modifier</a></li>
+                                                                <li><a href="#"><i class="fa fa-edit"></i> Renommer</a></li>
+                                                                <li><a href="#"><i class="fa fa-share"></i> Partager</a></li>
                                                                 <li><a href="#"><i class="fa fa-download"></i>Télécharger</a></li>
-                                                                <li><a href="#"><i class="fa fa-trash"></i> Supprimer</a></li>
+                                                                <li id="suprime"><a href="#" id="suprimelink" data-id="{{ valeur.id }}"><i class="fa fa-trash"></i> Supprimer</a></li>
                                                             </ul>
 
 
@@ -91,14 +92,16 @@
                                                         <input id="{{ valeur.id }}" class="magic-checkbox" type="checkbox">
                                                         <label for="{{ valeur.id }}"></label>
                                                     </div>
-                                                    <div class="file-settings">
+                                                    <div class="file-settings dropdown">
                                                         <a href="#"  data-toggle="dropdown" class="dropdown-toggle">
                                                             <i class="pci-ver-dots"></i></a>
                                                         <ul class="dropdown-menu extended logout">
-                                                            <li><a href="#"><i class="fa fa-edit"></i> Modifier</a></li>
-                                                            <li><a href="#"><i class="fa fa-download"></i>Télécharger</a></li>
-                                                            <li><a href="#"><i class="fa fa-trash"></i> Supprimer</a></li>
+                                                            <li><a href="#"><i class="fa fa-edit"></i> Renommer</a></li>
+                                                            <li><a href="#"><i class="fa fa-share"></i> Partager</a></li>
+                                                            <li id="download"  ><a href="#" id="dowloadlink" data-id="{{ valeur.id }}" ><i class="fa fa-download"></i>Télécharger</a></li>
+                                                            <li id="delete"><a href="#" id="deletelink" data-id="{{ valeur.id }}"><i class="fa fa-trash"></i> Supprimer</a></li>
                                                         </ul>
+
                                                     </div>
                                                     <div class="file-attach-icon"></div>
                                                     <a href="#" class="file-details" data-id="{{ valeur.id }}">
