@@ -104,8 +104,8 @@
 
                                                     </div>
                                                     <div class="file-attach-icon"></div>
-                                                    <a href="#" id="readA" class="file-details" data-id="{{ valeur.id }}" data-path="{{ valeur.path }}">
-                                                        <div class="media-block">
+                                                    <a href="#" id="readA" class="file-details" data-id="{{ valeur.id }}" >
+                                                        <div class="media-block" id="readB" data-path="{{ valeur.path }}">
                                                             <div class="media-left"><i class="demo-pli-file-{% if  valeur.type|lower in ['png','jpg','gif','bmp','jpeg'] %}jpg{% elseif valeur.type|lower in ['pdf','doc','docx','odt'] %}word{% else %}{{ valeur.type|lower }}{% endif %}"></i></div>
                                                             <div class="media-body">
                                                                 <p class="file-name">{{ valeur.name }}.{{ valeur.type|lower }}</p>
