@@ -48,14 +48,14 @@ $(document).ready(function () {
                                 "                                                        <input id=\""+value.id+"\" class=\"magic-checkbox\" type=\"checkbox\">\n" +
                                 "                                                        <label for=\""+value.id+"\"></label>\n" +
                                 "                                                    </div>\n" +
-                                "                                                    <div class=\"file-settings dropdown\">\n" +
+                                "                                                     <div class=\"file-settings dropdown\">\n" +
                                 "                                                        <a href=\"#\" data-toggle=\"dropdown\" class=\"dropdown-toggle\">\n" +
                                 "                                                            <i class=\"pci-ver-dots\"></i></a>\n" +
                                 "                                                            <ul class=\"dropdown-menu extended logout\">\n" +
                                 "                                                                <li><a href=\"#\"><i class=\"fa fa-edit\"></i> Renommer</a></li>\n" +
                                 "                                                                <li><a href=\"#\"><i class=\"fa fa-share\"></i> Partager</a></li>\n" +
                                 "                                                                <li><a href=\"#\"><i class=\"fa fa-download\"></i>Télécharger</a></li>\n" +
-                                "                                                                <li><a href=\"#\"><i class=\"fa fa-trash\"></i> Supprimer</a></li>\n" +
+                                "                                                                <li  id=\"suprime\"><a href=\"#\" id=\"suprimelink\" data-id=\""+value.id+"\"><i class=\"fa fa-trash\"></i> Supprimer</a></li>\n" +
                                 "                                                            </ul>\n" +
                                 "\n" +
                                 "\n" +
@@ -77,7 +77,7 @@ $(document).ready(function () {
 
                         $.each(data.files, function (key, value){
                             var imageTab1 = ['png','jpg','gif','bmp','jpeg'];
-                            var imageTab2 = ['pdf','doc','docx','odt'];
+                            var imageTab2 = ['pdf','doc','docx','odt','pl'];
                             var type;
                             if (imageTab1.indexOf(value.type.toLowerCase()) !== -1){
                                 type = 'jpg';
@@ -96,18 +96,18 @@ $(document).ready(function () {
                                 "                                                        <input id=\""+value.id+"\" class=\"magic-checkbox\" type=\"checkbox\">\n" +
                                 "                                                        <label for=\""+value.id+"\"></label>\n" +
                                 "                                                    </div>\n" +
-                                "                                                     <div class=\"file-settings dropdown\">\n" +
+                                "                                                    <div class=\"file-settings dropdown\">\n" +
                                 "                                                        <a href=\"#\" data-toggle=\"dropdown\" class=\"dropdown-toggle\">\n" +
                                 "                                                            <i class=\"pci-ver-dots\"></i></a>\n" +
                                 "                                                            <ul class=\"dropdown-menu extended logout\">\n" +
                                 "                                                                <li><a href=\"#\"><i class=\"fa fa-edit\"></i> Renommer</a></li>\n" +
                                 "                                                                <li><a href=\"#\"><i class=\"fa fa-share\"></i> Partager</a></li>\n" +
-                                "                                                                <li><a href=\"#\"><i class=\"fa fa-download\"></i>Télécharger</a></li>\n" +
-                                "                                                                <li><a href=\"#\"><i class=\"fa fa-trash\"></i> Supprimer</a></li>\n" +
+                                "                                                                <li id=\"download\"><a href=\"#\" id=\"dowloadlink\" data-id=\""+value.id+"\"><i class=\"fa fa-download\"></i>Télécharger</a></li>\n" +
+                                "                                                                <li id=\"delete\"><a href=\"#\" id=\"deletelink\" data-id=\""+value.id+"\"><i class=\"fa fa-trash\"></i> Supprimer</a></li>\n" +
                                 "                                                            </ul>\n" +
                                 "\n" +
                                 "\n" +
-                                "                                                    </div>\n" + +
+                                "                                                    </div>\n" +
                                 "                                                    <div class=\"file-attach-icon\"></div>\n" +
                                 "                                                    <a href=\"#\" class=\"file-details\" data-id=\""+value.id+"\">\n" +
                                 "                                                        <div class=\"media-block\">\n" +
@@ -176,7 +176,7 @@ $(document).ready(function () {
                         "                                                                <li><a href=\"#\"><i class=\"fa fa-edit\"></i> Renommer</a></li>\n" +
                         "                                                                <li><a href=\"#\"><i class=\"fa fa-share\"></i> Partager</a></li>\n" +
                         "                                                                <li><a href=\"#\"><i class=\"fa fa-download\"></i>Télécharger</a></li>\n" +
-                        "                                                                <li><a href=\"#\"><i class=\"fa fa-trash\"></i> Supprimer</a></li>\n" +
+                        "                                                                <li id=\"suprime\"><a href=\"#\" id=\"suprimelink\" data-id=\""+value.id+"\"><i class=\"fa fa-trash\"></i> Supprimer</a></li>\n" +
                         "                                                            </ul>\n" +
                         "\n" +
                         "\n" +
@@ -223,8 +223,8 @@ $(document).ready(function () {
                         "                                                            <ul class=\"dropdown-menu extended logout\">\n" +
                         "                                                                <li><a href=\"#\"><i class=\"fa fa-edit\"></i> Renommer</a></li>\n" +
                         "                                                                <li><a href=\"#\"><i class=\"fa fa-share\"></i> Partager</a></li>\n" +
-                        "                                                                <li><a href=\"#\"><i class=\"fa fa-download\"></i>Télécharger</a></li>\n" +
-                        "                                                                <li><a href=\"#\"><i class=\"fa fa-trash\"></i> Supprimer</a></li>\n" +
+                        "                                                                <li id=\"download\"><a href=\"#\" id=\"dowloadlink\" data-id=\""+value.id+"\"><i class=\"fa fa-download\"></i>Télécharger</a></li>\n" +
+                        "                                                                <li id=\"delete\"><a href=\"#\" id=\"deletelink\" data-id=\""+value.id+"\"><i class=\"fa fa-trash\"></i> Supprimer</a></li>\n" +
                         "                                                            </ul>\n" +
                         "\n" +
                         "\n" +
@@ -258,7 +258,7 @@ $(document).ready(function () {
         });
     };
 
-
+//upload file
     $('#btnupload').click(function () {
         $('#updropzone').dropzone({
             url: Window.dropUrl + "/webservice/upload/"+Window.mydir,
@@ -272,4 +272,247 @@ $(document).ready(function () {
 
     $("ul#demo-mail-list li.art-vmenu").dblclick(onDoubleClick);
 
+    //download files
+    $('li#download').click(function () {
+        var downfile = $(this).find("a#dowloadlink");
+        var id = downfile.data('id');
+
+        var DownUlr = Window.dropUrl+"/app/download?id="+id;
+        var myTab = window.open(DownUlr,"Download");
+
+
+
+    })
+    //supprimer files
+            $('li#delete').click(function(e) {
+                var deletefile = $(this).find("a#deletelink");
+                var id = deletefile.data('id');
+        $.ajax({
+            url:Window.dropUrl + "/webservice/file/remove?id="+id,
+            type:'DELETE',
+            headers:{'Authorization': token},
+            success:function (data) {
+                var liens = Window.dropUrl+"/webservice/folder";
+                $.ajax({
+                    type : 'GET',
+                    url  : liens ,
+                    headers: {'Authorization': token},
+                    success : function(data){
+                        var dirHtml = '';
+                        var fileHtml = '';
+                        $.each(data.directories, function (key, value){
+
+                            dirHtml += " <li class=\"art-vmenu\">\n" +
+                                "                                                    <div class=\"file-control\">\n" +
+                                "                                                        <input id=\""+value.id+"\" class=\"magic-checkbox\" type=\"checkbox\">\n" +
+                                "                                                        <label for=\""+value.id+"\"></label>\n" +
+                                "                                                    </div>\n" +
+                                "                                                     <div class=\"file-settings dropdown\">\n" +
+                                "                                                        <a href=\"#\" data-toggle=\"dropdown\" class=\"dropdown-toggle\">\n" +
+                                "                                                            <i class=\"pci-ver-dots\"></i></a>\n" +
+                                "                                                            <ul class=\"dropdown-menu extended logout\">\n" +
+                                "                                                                <li><a href=\"#\"><i class=\"fa fa-edit\"></i> Renommer</a></li>\n" +
+                                "                                                                <li><a href=\"#\"><i class=\"fa fa-share\"></i> Partager</a></li>\n" +
+                                "                                                                <li><a href=\"#\"><i class=\"fa fa-download\"></i>Télécharger</a></li>\n" +
+                                "                                                                <li id=\"suprime\"><a href=\"#\" id=\"deletelink\" data-id=\""+value.id+"\"><i class=\"fa fa-trash\"></i> Supprimer</a></li>\n" +
+                                "                                                            </ul>\n" +
+                                "\n" +
+                                "\n" +
+                                "                                                    </div>\n" +
+                                "                                                    <div class=\"file-attach-icon\"></div>\n" +
+                                "                                                    <a href=\"#\" class=\"file-details\" id=\"folderlink\" data-folder=\""+value.id+"\" data-token=\""+token+"\">\n" +
+                                "                                                        <div class=\"media-block\">\n" +
+                                "                                                            <div class=\"media-left\"><i class=\"demo-psi-folder\"></i></div>\n" +
+                                "                                                            <div class=\"media-body\">\n" +
+                                "                                                                <p class=\"file-name\">"+value.name+"</p>\n" +
+                                "                                                                <small>Created Yesterday | 22 MB</small>\n" +
+                                "                                                            </div>\n" +
+                                "                                                        </div>\n" +
+                                "                                                    </a>\n" +
+                                "                                                </li>"  ;
+
+
+                        });
+
+                        $.each(data.files, function (key, value){
+                            var imageTab1 = ['png','jpg','gif','bmp','jpeg'];
+                            var imageTab2 = ['pdf','doc','docx','odt','pl'];
+                            var type;
+                            if (imageTab1.indexOf(value.type.toLowerCase()) !== -1){
+                                type = 'jpg';
+                            }
+                            else{
+                                if (imageTab2.indexOf(value.type.toLowerCase()) !== -1) {
+                                    type = 'word';
+                                }
+                                else {
+                                    type = value.type.toLowerCase();
+                                }
+                            }
+
+                            fileHtml += " <li id=\"sortable\">\n" +
+                                "                                                    <div class=\"file-control\">\n" +
+                                "                                                        <input id=\""+value.id+"\" class=\"magic-checkbox\" type=\"checkbox\">\n" +
+                                "                                                        <label for=\""+value.id+"\"></label>\n" +
+                                "                                                    </div>\n" +
+                                "                                                    <div class=\"file-settings dropdown\">\n" +
+                                "                                                        <a href=\"#\" data-toggle=\"dropdown\" class=\"dropdown-toggle\">\n" +
+                                "                                                            <i class=\"pci-ver-dots\"></i></a>\n" +
+                                "                                                            <ul class=\"dropdown-menu extended logout\">\n" +
+                                "                                                                <li><a href=\"#\"><i class=\"fa fa-edit\"></i> Renommer</a></li>\n" +
+                                "                                                                <li><a href=\"#\"><i class=\"fa fa-share\"></i> Partager</a></li>\n" +
+                                "                                                                <li id=\"download\"><a href=\"#\" id=\"dowloadlink\" data-id=\""+value.id+"\"><i class=\"fa fa-download\"></i>Télécharger</a></li>\n" +
+                                "                                                                <li id=\"delete\"><a href=\"#\" id=\"deletelink\" data-id=\""+value.id+"\"><i class=\"fa fa-trash\"></i> Supprimer</a></li>\n" +
+                                "                                                            </ul>\n" +
+                                "\n" +
+                                "\n" +
+                                "                                                    </div>\n" +
+                                "                                                    <div class=\"file-attach-icon\"></div>\n" +
+                                "                                                    <a href=\"#\" class=\"file-details\" data-id=\""+value.id+"\">\n" +
+                                "                                                        <div class=\"media-block\">\n" +
+                                "                                                            <div class=\"media-left\"><i class=\"demo-pli-file-"+type+"\"></i></div>\n" +
+                                "                                                            <div class=\"media-body\">\n" +
+                                "                                                                <p class=\"file-name\">"+value.name+"."+ value.type.toLowerCase()+"</p>\n" +
+                                "                                                                <small>Created 3 weeks ago | 265 KB</small>\n" +
+                                "                                                            </div>\n" +
+                                "                                                        </div>\n" +
+                                "                                                    </a>\n" +
+                                "                                                </li>"  ;
+
+
+                        });
+
+
+
+                        $("#demo-mail-list").html(dirHtml + fileHtml);
+                        $("li.art-vmenu").on('dblclick', onDoubleClick);
+
+                    },
+                    error : function(data) {
+                        document.location.href = Window.dropUrl+'/logout';
+                    }
+                });
+            },
+            error:function (data) {
+                alert('echec');
+            }
+               });
+        });
 });
+//supprimer folder
+$('li#suprime').click(function(e) {
+    var supfolder = $(this).find("a#suprimelink");
+    var id = supfolder.data('id');
+    $.ajax({
+        url:Window.dropUrl + "/webservice/folder/remove?id="+id,
+        type:'DELETE',
+        headers:{'Authorization': token},
+        success:function (data) {
+            var liens = Window.dropUrl+"/webservice/folder";
+            $.ajax({
+                type : 'GET',
+                url  : liens ,
+                headers: {'Authorization': token},
+                success : function(data){
+                    var dirHtml = '';
+                    var fileHtml = '';
+                    $.each(data.directories, function (key, value){
+
+                        dirHtml += " <li class=\"art-vmenu\">\n" +
+                            "                                                    <div class=\"file-control\">\n" +
+                            "                                                        <input id=\""+value.id+"\" class=\"magic-checkbox\" type=\"checkbox\">\n" +
+                            "                                                        <label for=\""+value.id+"\"></label>\n" +
+                            "                                                    </div>\n" +
+                            "                                                     <div class=\"file-settings dropdown\">\n" +
+                            "                                                        <a href=\"#\" data-toggle=\"dropdown\" class=\"dropdown-toggle\">\n" +
+                            "                                                            <i class=\"pci-ver-dots\"></i></a>\n" +
+                            "                                                            <ul class=\"dropdown-menu extended logout\">\n" +
+                            "                                                                <li><a href=\"#\"><i class=\"fa fa-edit\"></i> Renommer</a></li>\n" +
+                            "                                                                <li><a href=\"#\"><i class=\"fa fa-share\"></i> Partager</a></li>\n" +
+                            "                                                                <li><a href=\"#\"><i class=\"fa fa-download\"></i>Télécharger</a></li>\n" +
+                            "                                                                <li id=\"suprime\"><a href=\"#\" id=\"suprimelink\" data-id=\""+value.id+"\"><i class=\"fa fa-trash\"></i> Supprimer</a></li>\n" +
+                            "                                                            </ul>\n" +
+                            "\n" +
+                            "\n" +
+                            "                                                    </div>\n" +
+                            "                                                    <div class=\"file-attach-icon\"></div>\n" +
+                            "                                                    <a href=\"#\" class=\"file-details\" id=\"folderlink\" data-folder=\""+value.id+"\" data-token=\""+token+"\">\n" +
+                            "                                                        <div class=\"media-block\">\n" +
+                            "                                                            <div class=\"media-left\"><i class=\"demo-psi-folder\"></i></div>\n" +
+                            "                                                            <div class=\"media-body\">\n" +
+                            "                                                                <p class=\"file-name\">"+value.name+"</p>\n" +
+                            "                                                                <small>Created Yesterday | 22 MB</small>\n" +
+                            "                                                            </div>\n" +
+                            "                                                        </div>\n" +
+                            "                                                    </a>\n" +
+                            "                                                </li>"  ;
+
+
+                    });
+
+                    $.each(data.files, function (key, value){
+                        var imageTab1 = ['png','jpg','gif','bmp','jpeg'];
+                        var imageTab2 = ['pdf','doc','docx','odt','pl'];
+                        var type;
+                        if (imageTab1.indexOf(value.type.toLowerCase()) !== -1){
+                            type = 'jpg';
+                        }
+                        else{
+                            if (imageTab2.indexOf(value.type.toLowerCase()) !== -1) {
+                                type = 'word';
+                            }
+                            else {
+                                type = value.type.toLowerCase();
+                            }
+                        }
+
+                        fileHtml += " <li id=\"sortable\">\n" +
+                            "                                                    <div class=\"file-control\">\n" +
+                            "                                                        <input id=\""+value.id+"\" class=\"magic-checkbox\" type=\"checkbox\">\n" +
+                            "                                                        <label for=\""+value.id+"\"></label>\n" +
+                            "                                                    </div>\n" +
+                            "                                                    <div class=\"file-settings dropdown\">\n" +
+                            "                                                        <a href=\"#\" data-toggle=\"dropdown\" class=\"dropdown-toggle\">\n" +
+                            "                                                            <i class=\"pci-ver-dots\"></i></a>\n" +
+                            "                                                            <ul class=\"dropdown-menu extended logout\">\n" +
+                            "                                                                <li><a href=\"#\"><i class=\"fa fa-edit\"></i> Renommer</a></li>\n" +
+                            "                                                                <li><a href=\"#\"><i class=\"fa fa-share\"></i> Partager</a></li>\n" +
+                            "                                                                <li id=\"download\"><a href=\"#\" id=\"dowloadlink\" data-id=\""+value.id+"\"><i class=\"fa fa-download\"></i>Télécharger</a></li>\n" +
+                            "                                                                <li id=\"delete\"><a href=\"#\" id=\"deletelink\" data-id=\""+value.id+"\"><i class=\"fa fa-trash\"></i> Supprimer</a></li>\n" +
+                            "                                                            </ul>\n" +
+                            "\n" +
+                            "\n" +
+                            "                                                    </div>\n" +
+                            "                                                    <div class=\"file-attach-icon\"></div>\n" +
+                            "                                                    <a href=\"#\" class=\"file-details\" data-id=\""+value.id+"\">\n" +
+                            "                                                        <div class=\"media-block\">\n" +
+                            "                                                            <div class=\"media-left\"><i class=\"demo-pli-file-"+type+"\"></i></div>\n" +
+                            "                                                            <div class=\"media-body\">\n" +
+                            "                                                                <p class=\"file-name\">"+value.name+"."+ value.type.toLowerCase()+"</p>\n" +
+                            "                                                                <small>Created 3 weeks ago | 265 KB</small>\n" +
+                            "                                                            </div>\n" +
+                            "                                                        </div>\n" +
+                            "                                                    </a>\n" +
+                            "                                                </li>"  ;
+
+
+                    });
+
+
+
+                    $("#demo-mail-list").html(dirHtml + fileHtml);
+                    $("li.art-vmenu").on('dblclick', onDoubleClick);
+
+                },
+                error : function(data) {
+                    document.location.href = Window.dropUrl+'/logout';
+                }
+            });
+        },
+        error:function (data) {
+            alert('echec');
+        }
+    });
+});
+
+
