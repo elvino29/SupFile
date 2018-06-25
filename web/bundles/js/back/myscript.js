@@ -399,14 +399,14 @@ $(document).ready(function () {
         });
     });
 
-    $('ul#demo-mail-list li#sortable').click(function () {
+    /*$('ul#demo-mail-list li#sortable').click(function () {
         var pathfile = $(this).find("a#renameLink");
         var path = pathfile.data('path')
         var link = window.location.origin = window.location.protocol + "//" + window.location.hostname+"/supfile/web/"
         var  url = link+path;
         document.getElementById('myIframe').src = url;
         $('#readmodal').modal("show");
-    });
+    });*/
 
     //download files
     $('li#download').click(function () {
