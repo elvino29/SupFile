@@ -50,7 +50,16 @@ class HomeController extends Controller
     }
 
     public function toDropzoneAction(){
-        return $this->render('AppBundle:Home:dropzone.htlm.twig');
+        // get user folder and files
+        $user = $this->getUser();
+        $em = $this->getDoctrine()
+            ->getManager();
+
+        $root = $em->getRepository('CoreBundle:Directory')->getUserRootDir($user->getId());
+        $userToken =  $this->get('session')->get('userToken');
+
+        return $this->render('AppBundle:Home:dropzone.html.twig', array( 'userTokent' => $userToken,
+            'homedirId' => $root->getId()));
     }
 
 

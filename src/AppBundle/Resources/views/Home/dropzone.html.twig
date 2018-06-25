@@ -8,7 +8,7 @@
         <section id="main-content">
             <section class="wrapper" >
                 <div class="row">
-                    <div class="col-sm-12 dropzone" id="mydropzone" style="height:800px;border:solid 1px #ccc;">
+                    <div class="col-sm-12 dropzone" id="mydropzone" style="height:800px;border:solid 1px #ccc;" data-home="{{ homedirId }}" data-token="{{ userTokent }}">
 
                     </div>
                 </div>
@@ -16,6 +16,3 @@
         </section>
 {% endblock %}
 
-    {% block javascript %}
-        <script src="{{ asset('bundles/js/back/upload.js') }}"></script>
-    {% endblock %}
