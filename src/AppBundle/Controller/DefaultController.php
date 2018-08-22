@@ -10,7 +10,7 @@ class DefaultController extends Controller
 
     public function indexAction()
     {
-        dump('test');exit();
-        return $this->render('AppBundle:Default:index.html.twig');
+
+        return $this->redirectToRoute("app_index");
     }
 }

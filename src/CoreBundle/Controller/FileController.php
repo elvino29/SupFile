@@ -70,8 +70,6 @@ class FileController extends Controller
      */
     public function uploadFileAction($id, Request $request){
 
-
-
         $user = $this->get("core_bundle.userprovider")
             ->loadUserByToken($request->headers->get('authorization'));
         if(!$user instanceof User) {
@@ -147,6 +145,33 @@ class FileController extends Controller
         }
 
     }
+
+//supprimer un fichier
+    /**
+     * @Rest\Delete("/file/remove")
+     */
+
+        public function removeFile(Request $request)
+    {
+        $user = $this->get("core_bundle.userprovider")
+            ->loadUserByToken($request->headers->get('authorization'));
+        if(!$user instanceof User) {
+            return $user;
+        }
+        $em = $this->getDoctrine()->getManager();
+        $file = $em->getRepository('CoreBundle:File')->find($request->get('id'));
+
+        $file_path = $file->getPath() ;
+        if(file_exists($file_path))
+            unlink($file_path);
+
+        if ($file) {
+            $em->remove($file);
+            $em->flush();
+        }
+        return new JsonResponse(['message' => 'Delete Succeded !'], Response::HTTP_OK);
+    }
+
 
     /**
      * @Rest\post("/file/share")
