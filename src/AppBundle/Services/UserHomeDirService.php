@@ -22,16 +22,19 @@ class UserHomeDirService
 {
     protected $em;
     private $container;
+    private $conteneur;
 
     // We need to inject this variables later.
-    public function __construct(EntityManagerInterface $entityManager, \Psr\Container\ContainerInterface $container)
+    public function __construct(EntityManagerInterface $entityManager, \Psr\Container\ContainerInterface $container, \Symfony\Component\DependencyInjection\ContainerInterface $conteneur)
     {
         $this->em = $entityManager;
         $this->container = $container;
+        $this->conteneur = $conteneur;
     }
     public function createHomeDir(UserInterface $user){
 
         $path = 'Dossier/'.$user->getId();
+
 
 
         $folder = new Directory();
@@ -61,4 +64,26 @@ class UserHomeDirService
         $this->em->persist($folder);
         $this->em->flush();
     }
+
+    public  function getToken(UserInterface $user){
+
+        return $this->container->get('lexik_jwt_authentication.encoder')
+            ->encode([
+                'username' => $user->getUsername(),
+                'exp' => $this->getTokenExpiration(),
+            ]);
+    }
+
+
+    public function getTokenExpiration(){
+
+
+        $expiration = $this->conteneur->getParameter('lexik_jwt_authentication.token_ttl');
+        $now = new \DateTime();
+        $now->add(new \DateInterval('PT'.$expiration.'S'));
+        return $now->format('U');
+
+
+    }
+
 }

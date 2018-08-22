@@ -306,7 +306,11 @@ class Directory
         if(!empty($this->getParent())) {
             $path = $this->getParent()->getCreateFolderDir();
         }
-        return $path .'/'.$this->name;
+        if($this->name == '..') {
+            return $path;
+        } else {
+            return $path .'/'.$this->name;
+        }
     }
 
     public  function getRenameFolderDir(){
@@ -322,7 +326,12 @@ class Directory
         if(!empty($this->getParent())) {
             $path = $this->getParent()->getAbsolutePath();
         }
-        return $path .'/'.$this->name;
+
+        if($this->name == '..') {
+            return $path;
+        } else {
+            return $path .'/'.$this->name;
+        }
     }
 
     public function getRealPath(Request $request) {

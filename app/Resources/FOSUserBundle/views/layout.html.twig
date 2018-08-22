@@ -49,7 +49,7 @@
 
     </header>
         <div>
-            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+            <!--{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                 {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
                 <a href="{{ path('fos_user_security_logout') }}">
                     {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
@@ -57,7 +57,7 @@
             {% else %}
                 <a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
             {% endif %}
-        </div>
+        </div>-->
 
         {% if app.request.hasPreviousSession %}
             {% for type, messages in app.session.flashbag.all() %}
@@ -81,10 +81,41 @@
             </div>
         </div>
     </div>
+            <!--  TESTIMONIALS  -->
+            <section class="testimonials">
+                <div class="row">
+                    <div class="small-12 columns">
+                        <div class="circle"><i class="fa fa-server"></i></div>
+                        <h2>ESSAYEZ GRATUITEMENT</h2>
+                        <hr class="small"/>
+                        <ul class="small-block-grid-1 large-block-grid-3 medium-block-grid-3">
 
+                            <li>
+
+                                <h2>SupFILE</h2>
+
+                            </li>
+
+                            <li >
+
+                                <h2>Assistance</h2>
+
+                            </li>
+
+                            <li >
+
+                                <h2>Produits</h2>
+
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            <!--  END OF TESTIMONIALS -->
         <!--  FOOTER  -->
         <footer>
-            <p class="copyright">© Copyright SUPLIFE </p>
+            <p class="copyright">© Copyright SUPFILE </p>
         </footer>
         <!--  END OF FOOTER  -->
 
